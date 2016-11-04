@@ -19,7 +19,7 @@ import os
 
 def read_db(dbname):
     with open(dbname, mode="rt", encoding="utf-8") as f:
-        return {os.path.basename(line.strip()): line.strip() for line in f}
+        return {os.path.basename(line.strip()).lower(): line.strip() for line in f}
 
 
 def get_files(filelist):
@@ -27,7 +27,7 @@ def get_files(filelist):
         return [line.strip() for line in f]
 
 def map_files(db, basenames):
-    return [ db[file] for file in basenames ]
+    return [ db[file.lower()] for file in basenames ]
 
 
 def main(dbname, filelist):
