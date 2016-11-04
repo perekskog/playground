@@ -1,0 +1,141 @@
+Privat 31		Privat 01		Privat 02		Privat 03		* Privat 04
+Toa	04:52:12	Personligt	05:53:44	Personligt	05:40:01	Personligt	05:37:30	Personligt	06:04:14
+Personligt	04:54:12	Hushåll	06:36:17	Physical	07:04:17	Physical	07:10:22	Dev	07:07:00
+Beh annat	05:46:20	Personligt	06:42:38	Oaktivitet	07:19:58	Oaktivitet	07:20:43	Personligt	07:22:43
+Personligt	06:31:31	Media	07:02:00	Dev	07:27:36	Dev	07:23:14	Physical	07:31:00
+	06:39:27	Physical	07:06:40	Physical	07:59:41	Physical	07:56:53	Personligt	07:52:30
+Personligt	10:04:44	Oaktivitet	07:20:02	Dev	08:04:00	Dev	08:00:12	Dev	07:54:04
+Toa	10:06:36	Dev	07:24:19	Oaktivitet	08:23:08	Down	08:18:25	Physical	08:25:37
+Bil	10:13:16	Physical	07:55:31	Physical	08:23:37	Physical	08:21:14	Oaktivitet	08:28:56
+	11:52:05	Dev	07:59:31		08:33:50		08:30:41	Dev	08:30:21
+Personligt	14:36:43	Down	08:13:00	Personligt	13:18:58	Personligt	11:49:37	Down	08:42:50
+Beh annat	14:40:46	Physical	08:16:18		13:44:09		12:11:28	Physical	08:46:55
+Media	15:28:52	Vill annat	08:20:25	Physical	17:53:04	Physical	16:00:13		08:56:07
+Personligt	16:55:54	Physical	08:23:55	Vill annat	17:59:20	Oaktivitet	16:11:42	Physical	11:11:30
+	16:59:07		08:28:57	Physical	18:22:50	Dev	16:16:20	Personligt	11:15:49
+Pers. utv	18:18:43	Physical	11:40:02	Oaktivitet	18:25:10	Oaktivitet	16:28:50	Oaktivitet	11:23:09
+Hushåll	18:31:46	Personligt	11:40:14	Dev	18:31:06	Läsa/titta	16:50:40	Physical	11:30:00
+Connecting	19:01:20	Connecting	11:47:37	Physical	18:47:03	Physical	16:58:53	Personligt	12:34:16
+Oaktivitet	19:26:35	Physical	12:34:11	Dev	18:52:00	Beh annat	17:02:38	Physical	12:40:59
+Dev	19:42:12		12:40:00	Physical	19:27:19	Connecting	17:31:54		12:45:15
+Läsa/titta	20:41:33	Physical	13:18:33	Personligt	19:40:08	Beh annat	18:23:52	Personligt	13:29:47
+Slöläs/titta	21:13:33	Beh annat	13:22:30	Connecting	19:45:04	Personligt	20:25:42		13:53:16
+Hushåll	21:31:17	Physical	13:45:39	Oaktivitet	20:01:44	Oaktivitet	20:56:33	Physical	15:41:03
+Läsa/titta	21:44:55		13:49:17	Hushåll	20:14:31	Dev	21:14:09	Vill annat	15:47:14
+Hushåll	00:01:18	Physical	17:10:51	Media	20:22:37	Personligt	23:25:50	Physical	16:51:00
+Personligt	00:04:21	Personligt	17:14:00	Hushåll	20:38:00	Läsa/titta	23:37:12	Oaktivitet	16:53:39
+Läsa/titta	00:09:34	Physical	17:30:06	Läsa/titta	20:42:54	Personligt	00:10:11	Läsa/titta	16:57:51
+Sleep	00:25:00	Personligt	19:06:48	Dev	20:56:05	Läsa/titta	00:40:31	Physical	17:14:08
+Oaktivitet	05:25:59	Physical	19:15:47	Hushåll	21:04:06	Toa	02:43:20	Dev	17:18:54
+	05:53:15	Personligt	19:25:23	Dev	21:16:54	Sleep	02:43:21	Physical	17:50:55
+		Oaktivitet	19:28:38	Toa	22:01:19	Oaktivitet	05:57:00	Personligt	18:03:48
+		Dev	19:30:06	Vill hemma	22:16:36		06:03:45	Connecting	18:08:47
+		Physical	19:45:44	Hushåll	22:54:00			Personligt	18:28:55
+		Dev	19:49:30	Läsa/titta	23:07:09			Dev	18:55:00
+		Physical	20:26:52	Personligt	23:44:15			Connecting	19:53:38
+		Personligt	20:40:30	Läsa/titta	00:15:11			Dev	20:14:00
+		Pers. utv	21:05:00	Sleep	00:30:00			Toa	20:24:42
+		Läsa/titta	21:26:27	Oaktivitet	05:25:00			Connecting	20:37:27
+		Dev	21:40:17		05:37:03			Läsa/titta	20:45:00
+		Läsa/titta	21:44:26					Dev	21:45:00
+		Slöläs/titta	22:30:00						...
+		Personligt	22:51:17
+		Läsa/titta	22:57:43
+		Sleep	23:17:08
+		Toa	01:32:50
+		Sleep	01:34:51
+			05:39:19
+Plats 31		Plats 01		Plats 02		Plats 03		* Plats 04
+Hemma	04:52:28	Hemma	05:53:46	Hemma	05:40:02	Hemma	05:37:31	Hemma	06:04:15
+He Hobby	05:10:11	He Ute	06:58:00	He Ute	07:02:15	He Ute	07:05:28	He Ute	07:29:02
+Hemma	05:41:07	He Område	07:06:42	He Område	07:04:19	He Område	07:10:24	He Område	07:31:00
+He Ute	05:47:15	Tunnelbana	07:18:12	Tunnelbana	07:18:24	Tunnelbana	07:19:10	Tunnelbana	07:49:55
+Bil	05:51:00	K Galleria	08:18:45	K Galleria	08:26:05	K Galleria	08:23:11	K Galleria	08:49:00
+He Ute	06:28:50	Kista	08:24:02	Kista	08:28:11	Kista	08:25:40	Kista	08:51:27
+Hemma	06:31:29	Jobb	08:28:59	Jobb	08:33:46	Jobb	08:30:43	Jobb	08:56:09
+He Hobby	06:39:29	Kista	11:40:00	Kista	17:53:02	Kista	16:00:08	Kista	11:11:28
+Hemma	10:04:42	Jobb	12:40:00	K Galleria	17:58:40	Pendel	16:10:50	K F&S	11:15:02
+He Ute	10:18:39	Kista	13:18:31	Tunnelbana	18:25:05	Annan plats	17:01:04	Kista	12:41:01
+Bil	11:29:46	Jobb	13:49:19	He Område	19:29:11	Bil	17:02:35	Jobb	12:45:17
+He Ute	11:37:21	Kista	17:10:50	Hemma	19:40:04	Annan plats	17:25:20	Kista	15:41:01
+Hemma	11:48:00	K F&S	17:14:00	He kök	19:45:06	Bil	17:31:58	K Galleria	15:46:02
+He Hobby	11:52:07	Kista	19:15:49	Hemma	22:54:00	Annan plats	17:40:32	Tunnelbana	16:46:26
+Hemma	14:36:41	K Galleria	19:21:47	He Soffa	23:07:16	Bil	18:23:55	He Område	17:52:25
+He Ute	14:40:48	Tunnelbana	19:24:22	Hemma	23:44:11	Annan plats	18:36:12	Hemma	18:03:50
+Bil	14:45:00	He Område	20:27:53	He Säng	00:14:36	Bil	19:51:45	He kök	18:28:44
+Annan plats	15:05:52	Hemma	20:40:31		05:37:05	He Ute	20:19:14	He Soffa	20:37:29
+Bil	15:10:00	He Soffa	20:51:20			Hemma	20:25:40		...
+He Ute	15:25:41	Hemma	22:51:18			He Soffa	21:14:11
+Hemma	15:28:48	He Säng	22:57:45			Hemma	23:25:53
+He Ute	15:32:45		05:39:24			He Soffa	23:35:00
+Bil	15:34:11					Hemma	00:10:30
+Annan plats	15:50:00					He Säng	00:40:34
+Bil	16:05:00						06:03:47
+Annan plats	16:10:19
+Bil	16:20:27
+Annan plats	16:25:01
+Bil	16:31:56
+He Ute	16:54:30
+Hemma	16:55:57
+He Hobby	16:59:09
+He kök	18:18:40
+He Soffa	19:42:06
+Hemma	21:31:15
+He Soffa	21:44:53
+Hemma	00:04:24
+He Säng	00:09:37
+	05:53:16
+Jobb 31		Jobb 01		Jobb 02		Jobb 03		Jobb 04
+Annat	05:10:16	Physical	08:29:01	Physical	08:33:53	Physical	08:30:45	Physical	08:56:12
+Dev env	05:22:36	Annat	08:29:45	Annat	08:34:28	Annat	08:31:00	Annat	08:57:00
+	05:41:04	Arch	08:34:30	Inbox	08:43:00	Physical	09:01:00	Kaffe	09:09:51
+Kaffe	06:39:31	Dev env	08:50:44	Pågående	08:50:06	Stage 7	09:03:19	Arch	09:11:51
+Dev env	06:40:31	Dev	08:56:39	Kaffe	08:57:44	Arch	09:25:00	Inbox	09:12:00
+Dev	06:41:32	Arch	09:16:57	Physical	09:00:00	Physical	09:45:17	Pågående	09:14:32
+Kaffe	07:48:56	Kaffe	09:18:41	Komp. utv	09:01:25	Kaffe	09:47:38	Dev	09:40:20
+Dev	07:53:33	Dev	09:20:00	Physical	10:29:00	Connecting	09:48:00	Kaffe	09:42:07
+Kaffe	09:11:29	Kaffe	09:47:23	Kaffe	10:30:00	Inbox	09:52:14	Adm	09:43:57
+Dev	09:18:06	Inbox	09:49:32	Dev	10:31:45	Physical	10:00:00	Dev	10:00:00
+	10:04:37	Dev	09:51:00	Inbox	12:28:45	Arch	10:02:00	Toa	10:19:35
+Inbox	11:52:11	Kaffe	10:24:53	Oaktivitet	12:35:00	Physical	10:59:00	Kaffe	10:21:45
+Oaktivitet	11:57:33	Dev	10:26:00	Toa	13:08:10	Toa	11:00:26	Dev	10:23:00
+Dev	12:16:31	Kaffe	10:59:34	Physical	13:17:18	Arch	11:02:36	Kaffe	10:44:25
+	14:36:39	Team	11:00:00		13:18:54	Inbox	11:18:16	Dev	10:47:27
+Inbox	16:59:10	Toa	11:27:30	Physical	13:44:12	Toa	11:44:23	Oaktivitet	11:06:18
+Dev	17:04:12	Physical	11:30:00	Dev	13:46:49	Physical	11:48:02	Physical	11:09:58
+	18:18:36		11:39:57	Inbox	13:59:00		11:49:31		11:11:26
+		Physical	12:40:00	Arch	14:01:42	Physical	12:11:31	Physical	12:45:20
+		Dev	12:42:00	Dev	14:07:20	Inbox	12:17:59	Annat	12:47:19
+		Toa	13:05:15	Kaffe	15:15:57	Pågående	12:25:52	Inbox	12:48:31
+		Physical	13:17:29	Dev	15:17:00	Team	13:01:03	Pers. utv	13:03:18
+			13:18:29	Pers. utv	16:45:07	Arch	13:25:36	Physical	13:27:02
+		Physical	13:49:26	Dev	16:55:00	Toa	14:48:50		13:29:43
+		Dev	13:50:58		17:52:58	Kaffe	15:00:38	Physical	13:53:19
+		Kaffe	14:32:31			Pågående	15:02:00	Dev	13:55:00
+		Dev	14:35:15			Kaffe	15:48:43	Oaktivitet	14:15:00
+		Toa	16:03:00			Annat	15:50:00	Physical	14:34:01
+		Kaffe	16:05:09			Physical	15:59:36	Connecting	14:37:07
+		Dev	16:07:00				16:00:05	Physical	14:59:40
+		Kaffe	16:39:59					Toa	15:01:00
+		Dev	16:41:00					Dev	15:03:06
+		Annat	17:03:56					Physical	15:40:06
+		Toa	17:07:02						15:40:59
+		Physical	17:09:54
+			17:10:48
+Kostnad 31		Kostnad 01		Kostnad 02		Kostnad 03		Kostnad 04
+Comp 9462 4623	05:10:18	Comp 9462 4623	08:29:03	Comp 9462 4623	08:33:54	Comp 9462 4623	08:30:47	Comp 9462 4623	08:56:13
+CMCC 9480 4018	05:22:38	CMCC 9480 4018	08:56:41	F. support 9460 2671	10:44:01		11:49:30	WP 53 9488 9580	09:11:50
+	05:41:03		11:39:54	DFU 9460 2672	11:29:22	Comp 9462 4623	12:11:33	STOD dok (???)	09:40:22
+CMCC 9480 4018	06:39:33	CMCC 9480 4018	12:40:00	Comp 9462 4623	11:30:22	WP 53 9488 9580	13:25:38		11:11:24
+WP 53 9488 9580	06:44:56		13:18:27		13:18:53		16:00:04	Comp 9462 4623	12:45:21
+TR (PLM) 9123 6718	07:41:13	CMCC 9480 4018	13:49:28	Comp 9462 4623	13:44:13				13:29:42
+DFU 9460 2672	07:48:05		17:10:45	WP 53 9488 9580	13:52:16			Comp 9462 4623	13:53:20
+F. support 9460 2671	08:55:40			Comp 9462 4623	14:01:44				15:40:55
+DFU 9460 2672	09:20:25			STOD dok (???)	14:07:18
+	10:04:35			WP 53 9488 9580	16:20:00
+Comp 9462 4623	11:52:13			Comp 9462 4623	16:44:45
+CMCC 9480 4018	12:16:34			WP 53 9488 9580	16:52:00
+	14:36:37				17:52:56
+CMCC 9480 4018	16:59:12
+STOD dok (???)	17:42:46
+	18:18:35
