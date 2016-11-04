@@ -34,6 +34,7 @@ def main(dbname, filelist):
     db = read_db(dbname)
     files = get_files(filelist)
     filepaths = map_files(db, files)
+    #print(files)
     for file in filepaths:
         print(file)
 
