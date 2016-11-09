@@ -1,7 +1,7 @@
 import csv
 import sys
 import json
-import datetime
+from datetime import datetime, date, time
 
 
 def get_date(initial_year, initial_month, initial_day, a_day):
@@ -14,7 +14,14 @@ def get_date(initial_year, initial_month, initial_day, a_day):
         month = month-12
         year = year+1
 
-    return datetime.date(year,month,day)
+    return date(year,month,day)
+
+
+def session_time(session_started, session_day_offset, timestamp):
+    d = session_started.date().toordinal()
+    t = datetime.strptime(timestamp, "%H:%M:%S").time()
+    st = datetime.combine(date.fromordinal(d+session_day_offset), t)
+    return st
 
 
 def fetch_items(file, skipcolumns):
@@ -39,7 +46,8 @@ def fetch_items(file, skipcolumns):
             if(len(row)==1+skipcolumns or (len(row)>=2+skipcolumns and row[1+skipcolumns] == "")):
                 if sessionname == "":
                     # Start of new sesseion
-                    sessioncreated = get_date(2016,10,7, int(row[0+skipcolumns].split()[-1]))
+                    d = get_date(2016,10,7, int(row[0+skipcolumns].split()[-1]))
+                    sessioncreated = datetime.combine(d, time(0,0))
                     if row[0+skipcolumns].startswith("*"):
                         print("case s1")
                         sessionisongoing = True
@@ -53,7 +61,8 @@ def fetch_items(file, skipcolumns):
                     session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
                     sessions.append(session)
                     taskentries = list()
-                    sessioncreated = get_date(2016,10,7,int(row[0+skipcolumns].split()[-1]))
+                    d = get_date(2016,10,7, int(row[0+skipcolumns].split()[-1]))
+                    sessioncreated = datetime.combine(d, time(0,0))
                     if row[0+skipcolumns].startswith("*"):
                         print("case s3")
                         sessionisongoing = True
@@ -68,7 +77,7 @@ def fetch_items(file, skipcolumns):
                 if row[0+skipcolumns] == "":
                     # Stop and add ongoing task, don't start new
                     print("case t1")
-                    stoptime = row[1+skipcolumns]
+                    stoptime = session_time(sessioncreated, 0, row[1+skipcolumns])
                     taskentry = {'taskname':taskname, 'start': starttime, 'stop': stoptime}
                     taskentries.append(taskentry)
                     taskname = ""
@@ -77,15 +86,15 @@ def fetch_items(file, skipcolumns):
                         # No ongoing task, start a new task
                         print("case t2")
                         taskname = row[0+skipcolumns]
-                        starttime = row[1+skipcolumns]
+                        starttime = session_time(sessioncreated, 0, row[1+skipcolumns])
                     else:
                         # Stop and add ongoing task, start new task
                         print("case t3")
-                        stoptime = row[1+skipcolumns]
+                        stoptime = session_time(sessioncreated, 0, row[1+skipcolumns])
                         taskentry = {'taskname':taskname, 'start': starttime, 'stop': stoptime}
                         taskentries.append(taskentry)
                         taskname = row[0+skipcolumns]
-                        starttime = row[1+skipcolumns]
+                        starttime = session_time(sessioncreated, 0, row[1+skipcolumns])
     if len(taskentries) > 0:
         session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
         sessions.append(session)
