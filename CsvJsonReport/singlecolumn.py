@@ -4,38 +4,61 @@ import json
 
 
 def fetch_items(file):
-    items = list()
-    session = str()
-    task = str()
+    sessions = list()
+    taskentries = list()
+    sessionname = str()
+    sessionisongoing = False
+    taskname = str()
     starttime = str()
     stoptime = str()
     with open(file, 'r') as f:
         reader = csv.reader(f, delimiter='\t')
         for row in reader:
             if(len(row)==1):
-                # Start of session
-                session = row[0]
+                if sessionname == "":
+                    # Start of new sesseion
+                    sessionname = row[0]
+                    if sessionname.startswith("* "):
+                        sessionisongoing = True
+                        sessionname = sessionname.lstrip("* ")
+                    else:
+                        sessionisongoing = False
+                else:
+                    # Switch session
+                    session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'taskentries': taskentries}
+                    sessions.append(session)
+                    taskentries = list()
+                    sessionname = row[0]
+                    if sessionname.startswith("* "):
+                        sessionisongoing = True
+                        sessionname = sessionname.lstrip("* ")
+                    else:
+                        sessionisongoing = False
             else:
                 # Not start of session
                 if row[0] == "":
                     # Stop and add ongoing task, don't start new
                     stoptime = row[1]
-                    item = {'session': session, 'task':task, 'start': starttime, 'stop': stoptime}
-                    items.append(item)
-                    task = ""
+                    taskentry = {'taskname':taskname, 'start': starttime, 'stop': stoptime}
+                    taskentries.append(taskentry)
+                    taskname = ""
                 else:
-                    if task == "":
+                    if taskname == "":
                         # No ongoing task, start a new task
-                        task = row[0]
+                        taskname = row[0]
                         starttime = row[1]
                     else:
                         # Stop and add ongoing task, start new task
                         stoptime = row[1]
-                        item = {'session': session, 'task':task, 'start': starttime, 'stop': stoptime}
-                        items.append(item)
-                        task = row[0]
+                        taskentry = {'taskname':taskname, 'start': starttime, 'stop': stoptime}
+                        taskentries.append(taskentry)
+                        taskname = row[0]
                         starttime = row[1]
-    return items
+    if len(taskentries) > 0:
+        session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'taskentries': taskentries}
+        sessions.append(session)
+
+    return sessions
 
 
 def print_items(items):
@@ -47,6 +70,7 @@ def main(file):
 #    print_items(items)
     jsonitems = json.dumps(items, sort_keys=True, indent=4)
     print_items(jsonitems)
+
 
 if __name__ == '__main__':
     main(sys.argv[1])
