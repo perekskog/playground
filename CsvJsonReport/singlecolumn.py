@@ -1,6 +1,20 @@
 import csv
 import sys
 import json
+import datetime
+
+
+def get_date(initial_year, initial_month, initial_day, a_day):
+    year = initial_year
+    month = initial_month
+    day = initial_day
+    if a_day < initial_day:
+        month = initial_month+1
+    if month > 12:
+        month = month-12
+        year = year+1
+
+    return datetime.date(year,month,day)
 
 
 def fetch_items(file, skipcolumns):
@@ -25,7 +39,7 @@ def fetch_items(file, skipcolumns):
             if(len(row)==1+skipcolumns or (len(row)>=2+skipcolumns and row[1+skipcolumns] == "")):
                 if sessionname == "":
                     # Start of new sesseion
-                    sessioncreated = row[0+skipcolumns].split()[-1]
+                    sessioncreated = get_date(2016,10,7, int(row[0+skipcolumns].split()[-1]))
                     if row[0+skipcolumns].startswith("*"):
                         print("case s1")
                         sessionisongoing = True
@@ -39,7 +53,7 @@ def fetch_items(file, skipcolumns):
                     session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
                     sessions.append(session)
                     taskentries = list()
-                    sessioncreated = row[0+skipcolumns].split()[-1]
+                    sessioncreated = get_date(2016,10,7,int(row[0+skipcolumns].split()[-1]))
                     if row[0+skipcolumns].startswith("*"):
                         print("case s3")
                         sessionisongoing = True
@@ -83,10 +97,19 @@ def print_items(items):
     print(items)
 
 
+def date_handler(obj):
+    if hasattr(obj, 'isoformat'):
+        return obj.isoformat()
+    elif isinstance(obj, ...):
+        return ...
+    else:
+        raise TypeError('Object of type %s with value of %s is not JSON serializable' % (type(obj), repr(obj)))
+
+
 def main(file, skipcolumns):
     items = fetch_items(file, int(skipcolumns))
 #    print_items(items)
-    jsonitems = json.dumps(items, sort_keys=True, indent=4)
+    jsonitems = json.dumps(items, sort_keys=True, indent=4, default=date_handler)
     print_items(jsonitems)
 
 
