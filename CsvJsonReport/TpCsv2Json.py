@@ -4,12 +4,14 @@ import json
 from datetime import datetime, date, time
 
 
-def get_date(initial_year, initial_month, initial_day, a_day):
-    year = initial_year
-    month = initial_month
-    day = initial_day
-    if a_day < initial_day:
-        month = initial_month+1
+def get_date(base_date, a_day):
+    year = base_date.year
+    month = base_date.month
+    day = base_date.day
+    if a_day < day:
+        month = month+1
+    else:
+        day = a_day
     if month > 12:
         month = month-12
         year = year+1
@@ -24,29 +26,39 @@ def session_time(session_started, session_day_offset, timestamp):
     return st
 
 
-def fetch_items(file, skipcolumns):
+def fetch_items(file, base_date, skipcolumns):
     sessions = list()
     taskentries = list()
     sessionname = str()
     sessioncreated = str()
     sessionisongoing = False
+    session_day_offset = 0
     taskname = str()
-    starttime = str()
-    stoptime = str()
-    with open(file, 'r') as f:
+    starttime = datetime(1,1,1)
+    stoptime = datetime(1,1,1)
+    #with open(file, 'r', encoding='iso-8859-1') as f:
+    with open(file, 'r', encoding='utf-8') as f:
+        #reader = csv.reader(f, delimiter=';')
         reader = csv.reader(f, delimiter='\t')
         for row in reader:
             print(row)
             if(len(row)<=skipcolumns):
+                # Not enough columns
                 print("continue 1")
                 continue;
             if(len(row)>=skipcolumns+1 and row[0+skipcolumns]=="" and row[1+skipcolumns]==""):
+                # Empty row
                 print("continue 2")
+                continue;
+            if(len(row)>=skipcolumns+2 and row[skipcolumns+1]=="..."):
+                # Unfinished task, skip row, next row will be empty or start of new session
+                print("continue 3")
+                taskname = ""
                 continue;
             if(len(row)==1+skipcolumns or (len(row)>=2+skipcolumns and row[1+skipcolumns] == "")):
                 if sessionname == "":
-                    # Start of new sesseion
-                    d = get_date(2016,10,7, int(row[0+skipcolumns].split()[-1]))
+                    # Start of new sesseion, no previous session
+                    d = get_date(base_date, int(row[0+skipcolumns].split()[-1]))
                     sessioncreated = datetime.combine(d, time(0,0))
                     if row[0+skipcolumns].startswith("*"):
                         print("case s1")
@@ -60,8 +72,12 @@ def fetch_items(file, skipcolumns):
                     # Switch session
                     session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
                     sessions.append(session)
+                    session_day_offset = 0
                     taskentries = list()
-                    d = get_date(2016,10,7, int(row[0+skipcolumns].split()[-1]))
+                    starttime = datetime(1,1,1)
+                    stoptime = datetime(1,1,1)
+
+                    d = get_date(base_date, int(row[0+skipcolumns].split()[-1]))
                     sessioncreated = datetime.combine(d, time(0,0))
                     if row[0+skipcolumns].startswith("*"):
                         print("case s3")
@@ -77,7 +93,12 @@ def fetch_items(file, skipcolumns):
                 if row[0+skipcolumns] == "":
                     # Stop and add ongoing task, don't start new
                     print("case t1")
-                    stoptime = session_time(sessioncreated, 0, row[1+skipcolumns])
+                    stoptime = session_time(sessioncreated, session_day_offset, row[1+skipcolumns])
+                    if stoptime < starttime:
+                        print("case t1 - new day")
+                        session_day_offset = session_day_offset+1
+                        stoptime = session_time(sessioncreated, session_day_offset, row[1+skipcolumns])
+                    print(starttime, stoptime)
                     taskentry = {'taskname':taskname, 'start': starttime, 'stop': stoptime}
                     taskentries.append(taskentry)
                     taskname = ""
@@ -86,15 +107,27 @@ def fetch_items(file, skipcolumns):
                         # No ongoing task, start a new task
                         print("case t2")
                         taskname = row[0+skipcolumns]
-                        starttime = session_time(sessioncreated, 0, row[1+skipcolumns])
+                        starttime = session_time(sessioncreated, session_day_offset, row[1+skipcolumns])
+                        if starttime < stoptime:
+                            # Compensate for start of new day
+                            print("case t2 - new day")
+                            session_day_offset = session_day_offset+1
+                            starttime = session_time(sessioncreated, session_day_offset, row[1+skipcolumns])
+                        print(starttime, stoptime)
                     else:
                         # Stop and add ongoing task, start new task
                         print("case t3")
-                        stoptime = session_time(sessioncreated, 0, row[1+skipcolumns])
+                        stoptime = session_time(sessioncreated, session_day_offset, row[1+skipcolumns])
+                        if stoptime < starttime:
+                            # Compensate for start of new day
+                            print("case t3 - new day")
+                            session_day_offset = session_day_offset+1
+                            stoptime = session_time(sessioncreated, session_day_offset, row[1+skipcolumns])
+                        print(starttime, stoptime)
                         taskentry = {'taskname':taskname, 'start': starttime, 'stop': stoptime}
                         taskentries.append(taskentry)
                         taskname = row[0+skipcolumns]
-                        starttime = session_time(sessioncreated, 0, row[1+skipcolumns])
+                        starttime = stoptime
     if len(taskentries) > 0:
         session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
         sessions.append(session)
@@ -115,12 +148,10 @@ def date_handler(obj):
         raise TypeError('Object of type %s with value of %s is not JSON serializable' % (type(obj), repr(obj)))
 
 
-def main(file, skipcolumns):
-    items = fetch_items(file, int(skipcolumns))
-#    print_items(items)
-    jsonitems = json.dumps(items, sort_keys=True, indent=4, default=date_handler)
-    print_items(jsonitems)
+def main(filein, base_date, skipcolumns, fileout):
+    items = fetch_items(filein, datetime.strptime(base_date, "%y-%m-%d"), int(skipcolumns))
+    open(fileout, 'wb').write(json.dumps(items, sort_keys=True, indent=4, default=date_handler, ensure_ascii=False).encode('utf8'))
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
