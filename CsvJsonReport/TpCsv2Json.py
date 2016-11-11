@@ -26,7 +26,7 @@ def session_time(session_started, session_day_offset, timestamp):
     return st
 
 
-def fetch_items(file, base_date, skipcolumns):
+def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
     sessions = list()
     taskentries = list()
     sessionname = str()
@@ -37,9 +37,9 @@ def fetch_items(file, base_date, skipcolumns):
     starttime = datetime(1,1,1)
     stoptime = datetime(1,1,1)
     #with open(file, 'r', encoding='iso-8859-1') as f:
-    with open(file, 'r', encoding='utf-8') as f:
-        #reader = csv.reader(f, delimiter=';')
-        reader = csv.reader(f, delimiter='\t')
+    with open(file, 'r', encoding=input_encoding) as f:
+        #reader = csv.reader(f, delimiter='\t')
+        reader = csv.reader(f, delimiter=input_delimiter[0])
         for row in reader:
             print(row)
             if(len(row)<=skipcolumns):
@@ -148,10 +148,14 @@ def date_handler(obj):
         raise TypeError('Object of type %s with value of %s is not JSON serializable' % (type(obj), repr(obj)))
 
 
-def main(filein, base_date, skipcolumns, fileout):
-    items = fetch_items(filein, datetime.strptime(base_date, "%y-%m-%d"), int(skipcolumns))
+def main(filein, input_encoding, input_delimiter, base_date, skipcolumns, fileout):
+    if input_delimiter=="tab":
+        items = fetch_items(filein, input_encoding, '\t', datetime.strptime(base_date, "%y-%m-%d"), int(skipcolumns))
+    else:
+        items = fetch_items(filein, input_encoding, input_delimiter, datetime.strptime(base_date, "%y-%m-%d"), int(skipcolumns))
+
     open(fileout, 'wb').write(json.dumps(items, sort_keys=True, indent=4, default=date_handler, ensure_ascii=False).encode('utf8'))
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
