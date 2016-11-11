@@ -70,7 +70,7 @@ def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
                         sessionname = row[0+skipcolumns].split()[0]
                 else:
                     # Switch session
-                    session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
+                    session = {'projectname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
                     sessions.append(session)
                     session_day_offset = 0
                     taskentries = list()
@@ -129,7 +129,7 @@ def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
                         taskname = row[0+skipcolumns]
                         starttime = stoptime
     if len(taskentries) > 0:
-        session = {'sessionname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
+        session = {'projectname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
         sessions.append(session)
 
     return sessions
