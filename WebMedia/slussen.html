@@ -1,0 +1,94 @@
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style>
+</style>
+
+<script>
+
+/*
+
+TODO
+
++ Maintain a currentMedia wich refers to the media playing currently.
+
+*/
+
+var movie = [
+    {start:"lb", stop:"rb", media:"media/Video 2015-10-17 18 00 10.mov"},
+    {start:"rb", stop:"lb", media:"media/Video 2015-10-17 18 00 24.mov"},
+    {start:"lb", stop:"lt", media:"media/Video 2015-10-17 18 00 33.mov"},
+    {start:"lt", stop:"lb", media:"media/Video 2015-10-17 18 00 39.mov"},
+    {start:"lt", stop:"rt", media:"media/Video 2015-10-17 18 00 46.mov"},
+    {start:"rt", stop:"lt", media:"media/Video 2015-10-17 18 00 52.mov"},
+    {start:"rb", stop:"rt", media:"media/Video 2015-10-17 18 01 00.mov"},
+    {start:"rt", stop:"rb", media:"media/Video 2015-10-17 18 01 05.mov"}
+]
+var destination = "lb"
+
+function handleEvent(e) {
+//    alert(e);
+//    alert("Ended up at " + destination)
+    var m = mediaStartingAt(destination)
+    var s = htmlForMedia(m);
+    document.getElementById("navigator").innerHTML = s
+}
+
+function play(src) {
+    var player = document.getElementById("slussenvideo");
+    player.src = src
+    player.addEventListener("canplay", function() { player.play() })
+}
+
+function mediaStartingAt(startPosition) {
+    var selection = [];
+    for (var i = 0; i < movie.length; i++) {
+        if(movie[i].start == startPosition) {
+            selection.push(movie[i])
+        }
+    }
+    return selection
+}
+
+function goTo(media, dest) {
+    play(media);
+    destination = dest
+}
+
+function htmlForMedia(m) {
+    var s = "";
+    for (var i = 0; i < m.length; i++) {
+        s += '<a href="javascript:goTo(\'' + m[i].media + '\', \'' + m[i].stop + '\')">' + m[i].start + " -> " + m[i].stop + '</a>' + "   ";
+    };
+    return s;
+}
+
+</script>
+</head>
+
+<body>
+
+<div class="video-player" align="center">
+    <video id="slussenvideo" height="500" width="700" controls>
+    </video>
+</div>
+
+<script>
+var slussenVideo = document.getElementById("slussenvideo");
+slussenVideo.addEventListener('ended', function() { handleEvent("ended") }, false);
+</script>
+
+
+<p id="navigator"></p>
+
+<script>
+var m = mediaStartingAt(destination)
+var s = htmlForMedia(m);
+document.getElementById("navigator").innerHTML = s
+</script>
+</body>
+
+</html>
