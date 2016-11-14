@@ -63,11 +63,11 @@ def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
                     if row[0+skipcolumns].startswith("*"):
                         print("case s1")
                         sessionisongoing = True
-                        sessionname = row[0+skipcolumns].split()[1]
+                        sessionname = " ".join(row[0+skipcolumns].split()[1:-1])
                     else:
                         print("case s2")
                         sessionisongoing = False
-                        sessionname = row[0+skipcolumns].split()[0]
+                        sessionname = " ".join(row[0+skipcolumns].split()[0:-1])
                 else:
                     # Switch session
                     session = {'projectname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
@@ -82,11 +82,11 @@ def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
                     if row[0+skipcolumns].startswith("*"):
                         print("case s3")
                         sessionisongoing = True
-                        sessionname = row[0+skipcolumns].split()[1]
+                        sessionname = " ".join(row[0+skipcolumns].split()[1:-1])
                     else:
                         print("case s4")
                         sessionisongoing = False
-                        sessionname = row[0+skipcolumns].split()[0]
+                        sessionname = " ".join(row[0+skipcolumns].split()[0:-1])
             else:
                 # Not start of session
                 print(len(row))
