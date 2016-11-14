@@ -8,17 +8,17 @@ sheets = [
     'name': "21 dec - 27 dec-Tabell 1.csv",
     'basedate': "15-12-21",
     'columns': [0, 2, 4, 6, 8, 10, 12]
-    }#,
-    # {
-    # 'name': "30 dec - 4 jan - Tabell1.csv",
-    # 'basedate': "15-12-30",
-    # 'columns': [0, 2, 4, 6, 8, 10]
-    # },
-    # {
-    # 'name': "5 jan - 10 jan - Tabell1.csv",
-    # 'basedate': "16-01-05",
-    # 'columns': [0, 2, 4, 6, 8, 10]
-    # }
+    },
+    {
+    'name': "30 dec - 4 jan-Tabell 1.csv",
+    'basedate': "15-12-30",
+    'columns': [0, 2, 4, 6, 8, 10]
+    },
+    {
+    'name': "5 jan - 10 jan-Tabell 1.csv",
+    'basedate': "16-01-05",
+    'columns': [0, 2, 4, 6, 8, 10]
+    }
 ]
 
 def date_handler(obj):
@@ -31,10 +31,13 @@ def date_handler(obj):
 
 def main(basedirectory, json_store):
     f = open(json_store, 'wb')
+    sessions = list()
     for sheet in sheets:
         for column in sheet['columns']:
             items = fetch_items(basedirectory+sheet['name'], "utf-8", ';', datetime.strptime(sheet['basedate'], "%y-%m-%d"), column)
-            f.write(json.dumps(items, sort_keys=True, indent=4, default=date_handler, ensure_ascii=False).encode('utf8'))
+            for session in items:
+                sessions.append(session)
+    f.write(json.dumps(sessions, sort_keys=True, indent=4, default=date_handler, ensure_ascii=False).encode('utf8'))
 
 
 if __name__ == '__main__':

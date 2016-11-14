@@ -23,9 +23,9 @@ def date_handler(obj):
 
 def main(store):
 #    items = fetch_items(file)
-    items = json.loads
-    print_items(items)
-
+    items = json.load(open(store, 'r', encoding="utf-8"))
+    for session in items:
+        print(session['projectname'], session['created'])
 
 if __name__ == '__main__':
     main(sys.argv[1])
