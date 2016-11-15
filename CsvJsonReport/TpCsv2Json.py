@@ -70,7 +70,14 @@ def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
                         sessionname = " ".join(row[0+skipcolumns].split()[0:-1])
                 else:
                     # Switch session
-                    session = {'projectname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
+                    now = datetime.now()
+                    session = {
+                        'projectname': sessionname,
+                        'isongoing': sessionisongoing,
+                        'date_created': sessioncreated,
+                        'date_ingested': now,
+                        'date_modified': now,
+                        'taskentries': taskentries}
                     sessions.append(session)
                     session_day_offset = 0
                     taskentries = list()
@@ -129,7 +136,14 @@ def fetch_items(file, input_encoding, input_delimiter, base_date, skipcolumns):
                         taskname = row[0+skipcolumns]
                         starttime = stoptime
     if len(taskentries) > 0:
-        session = {'projectname': sessionname, 'isongoing': sessionisongoing, 'created': sessioncreated, 'taskentries': taskentries}
+        now = datetime.now()
+        session = {
+            'projectname': sessionname,
+            'isongoing': sessionisongoing,
+            'date_created': sessioncreated,
+            'date_ingested': now,
+            'date_modified': now,
+            'taskentries': taskentries}
         sessions.append(session)
 
     return sessions
