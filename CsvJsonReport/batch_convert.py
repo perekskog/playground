@@ -7,13 +7,28 @@ sheets = [
     { 'name': "21 dec - 27 dec-Tabell 1.csv", 'basedate': "15-12-21", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "30 dec - 4 jan-Tabell 1.csv", 'basedate': "15-12-30", 'columns': [0, 2, 4, 6, 8, 10]},
     { 'name': "5 jan - 10 jan-Tabell 1.csv", 'basedate': "16-01-05", 'columns': [0, 2, 4, 6, 8, 10]},
-
     { 'name': "11 jan - 17 jan-Tabell 1.csv", 'basedate': "16-01-11", 'columns': [1, 3, 5, 7, 9, 11, 13]},
     { 'name': "18 jan - 22 jan-Tabell 1.csv", 'basedate': "16-01-18", 'columns': [0, 2, 4, 6, 8]},
     { 'name': "25 jan - 31 jan-Tabell 1.csv", 'basedate': "16-01-25", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "1 feb - 7 feb-Tabell 1.csv", 'basedate': "16-02-01", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "8 feb - 14 feb-Tabell 1.csv", 'basedate': "16-02-08", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "15 feb - 21 feb-Tabell 1.csv", 'basedate': "16-02-15", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "22 feb - 28 feb-Tabell 1.csv", 'basedate': "16-02-22", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "29 feb - 6 mar-Tabell 1.csv", 'basedate': "16-02-29", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "7 mars - 13 mars-Tabell 1.csv", 'basedate': "16-03-07", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "21 mars - 27 mars-Tabell 1.csv", 'basedate': "16-03-21", 'columns': [1, 3, 5, 7, 9, 11, 13]},
+    { 'name': "28 mars - 3 april-Tabell 1.csv", 'basedate': "16-03-28", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "4 apr - 10 apr-Tabell 1.csv", 'basedate': "16-04-04", 'columns': [0, 2, 4, 6, 8, 10, 12]}, # Finns en exra flik för 4 april?
+    { 'name': "11 april - 17 april-Tabell 1.csv", 'basedate': "16-04-11", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "18 april - 24 april-Tabell 1.csv", 'basedate': "16-04-18", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "25 april - 1 maj-Tabell 1.csv", 'basedate': "16-04-25", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "2 maj - 8 maj-Tabell 1.csv", 'basedate': "16-05-02", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "9 maj - 15 maj-Tabell 1.csv", 'basedate': "16-05-09", 'columns': [1, 3, 5, 7, 9, 11, 13]},
+    { 'name': "16 maj - 19 maj-Tabell 1.csv", 'basedate': "16-05-16", 'columns': [0, 2, 4, 6]},
+    { 'name': "20 maj - 22 maj-Tabell 1.csv", 'basedate': "16-05-20", 'columns': [0, 2, 4]},
+    { 'name': "23 maj - 29 maj-Tabell 1.csv", 'basedate': "16-05-23", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "30 maj - 5 juni-Tabell 1.csv", 'basedate': "16-05-30", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "6 juni - 12 juni-Tabell 1.csv", 'basedate': "16-06-06", 'columns': [0, 2, 4, 6, 8, 10, 12]},
 ]
 
 def date_handler(obj):
