@@ -10,8 +10,7 @@ def get_date(base_date, a_day):
     day = base_date.day
     if a_day < day:
         month = month+1
-    else:
-        day = a_day
+    day = a_day
     if month > 12:
         month = month-12
         year = year+1

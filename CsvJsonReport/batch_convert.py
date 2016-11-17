@@ -29,6 +29,22 @@ sheets = [
     { 'name': "23 maj - 29 maj-Tabell 1.csv", 'basedate': "16-05-23", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "30 maj - 5 juni-Tabell 1.csv", 'basedate': "16-05-30", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "6 juni - 12 juni-Tabell 1.csv", 'basedate': "16-06-06", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "14 juni - 19 juni-Tabell 1.csv", 'basedate': "16-06-14", 'columns': [0, 2, 4, 6, 8]},
+    { 'name': "20 juni - 26 juni-Tabell 1.csv", 'basedate': "16-06-20", 'columns': [0, 2, 4, 6, 8, 10, 12]}, # Contains 27-28 as well? Redigera bort?
+    { 'name': "27 juni - 3 juli-Tabell 1.csv", 'basedate': "16-06-27", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "4 juli - 8 juli-Tabell 1.csv", 'basedate': "16-07-04", 'columns': [0, 2, 4, 6, 8]},
+    { 'name': "8 aug - 14 aug-Tabell 1.csv", 'basedate': "16-08-08", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "16 aug - 21 aug-Tabell 1.csv", 'basedate': "16-08-16", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "22 aug - 28 aug-Tabell 1.csv", 'basedate': "16-08-22", 'columns': [0, 2, 4, 6, 8, 10]},
+    { 'name': "29 aug - 4 sep-Tabell 1.csv", 'basedate': "16-08-29", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "12 sep - 18 sep-Tabell 1.csv", 'basedate': "16-09-12", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "19 sep - 25 sep-Tabell 1.csv", 'basedate': "16-09-19", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "27 sep - 2 okt-Tabell 1.csv", 'basedate': "16-09-26", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "3 okt - 9 okt-Tabell 1.csv", 'basedate': "16-10-03", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "10 okt - 16 okt-Tabell 1.csv", 'basedate': "16-10-10", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "17 okt - 23 okt-Tabell 1.csv", 'basedate': "16-10-17", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "31 okt - 6 nov-Tabell 1.csv", 'basedate': "16-10-31", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "7 nov - 13 nov-Tabell 1.csv", 'basedate': "16-11-07", 'columns': [0, 2, 4, 6, 8, 10, 12]}
 ]
 
 def date_handler(obj):
