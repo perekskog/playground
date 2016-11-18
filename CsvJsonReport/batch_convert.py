@@ -34,7 +34,7 @@ sheets = [
     { 'name': "27 juni - 3 juli-Tabell 1.csv", 'basedate': "16-06-27", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "4 juli - 8 juli-Tabell 1.csv", 'basedate': "16-07-04", 'columns': [0, 2, 4, 6, 8]},
     { 'name': "8 aug - 14 aug-Tabell 1.csv", 'basedate': "16-08-08", 'columns': [0, 2, 4, 6, 8, 10, 12]},
-    { 'name': "16 aug - 21 aug-Tabell 1.csv", 'basedate': "16-08-16", 'columns': [0, 2, 4, 6, 8, 10, 12]},
+    { 'name': "16 aug - 21 aug-Tabell 1.csv", 'basedate': "16-08-15", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "22 aug - 28 aug-Tabell 1.csv", 'basedate': "16-08-22", 'columns': [0, 2, 4, 6, 8, 10]},
     { 'name': "29 aug - 4 sep-Tabell 1.csv", 'basedate': "16-08-29", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "12 sep - 18 sep-Tabell 1.csv", 'basedate': "16-09-12", 'columns': [0, 2, 4, 6, 8, 10, 12]},

@@ -54,10 +54,9 @@ def session_summary(session):
 
 
 def timesheet(store, first_date, last_date):
-    items = json.load(open(store, 'r', encoding="utf-8"), object_hook=datetime_parser)
     first = datetime.strptime(first_date, "%y-%m-%d").date().toordinal()
     last = datetime.strptime(last_date, "%y-%m-%d").date().toordinal()
-    subset_kostnad = [ s for s in items if session_between_dates(s, "Kostnad", first, last)]
+    subset_kostnad = [ s for s in store if session_between_dates(s, "Kostnad", first, last)]
 
     tasknames = set()
     for session in subset_kostnad:
@@ -72,8 +71,9 @@ def timesheet(store, first_date, last_date):
 
 
 def main(store, report, first_date, last_date):
+    items = json.load(open(store, 'r', encoding="utf-8"), object_hook=datetime_parser)
     if report=="timesheet":
-        timesheet(store, first_date, last_date)
+        timesheet(items, first_date, last_date)
 
 
 if __name__ == '__main__':
