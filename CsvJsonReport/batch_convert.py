@@ -18,7 +18,7 @@ sheets = [
     { 'name': "7 mars - 13 mars-Tabell 1.csv", 'basedate': "16-03-07", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "21 mars - 27 mars-Tabell 1.csv", 'basedate': "16-03-21", 'columns': [1, 3, 5, 7, 9, 11, 13]},
     { 'name': "28 mars - 3 april-Tabell 1.csv", 'basedate': "16-03-28", 'columns': [0, 2, 4, 6, 8, 10, 12]},
-    { 'name': "4 apr - 10 apr-Tabell 1.csv", 'basedate': "16-04-04", 'columns': [0, 2, 4, 6, 8, 10, 12]}, # Finns en exra flik för 4 april?
+    { 'name': "4 apr - 10 apr-Tabell 1.csv", 'basedate': "16-04-04", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "11 april - 17 april-Tabell 1.csv", 'basedate': "16-04-11", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "18 april - 24 april-Tabell 1.csv", 'basedate': "16-04-18", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "25 april - 1 maj-Tabell 1.csv", 'basedate': "16-04-25", 'columns': [0, 2, 4, 6, 8, 10, 12]},
@@ -30,7 +30,7 @@ sheets = [
     { 'name': "30 maj - 5 juni-Tabell 1.csv", 'basedate': "16-05-30", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "6 juni - 12 juni-Tabell 1.csv", 'basedate': "16-06-06", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "14 juni - 19 juni-Tabell 1.csv", 'basedate': "16-06-14", 'columns': [0, 2, 4, 6, 8]},
-    { 'name': "20 juni - 26 juni-Tabell 1.csv", 'basedate': "16-06-20", 'columns': [0, 2, 4, 6, 8, 10, 12]}, # Contains 27-28 as well? Redigera bort?
+    { 'name': "20 juni - 26 juni-Tabell 1.csv", 'basedate': "16-06-20", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "27 juni - 3 juli-Tabell 1.csv", 'basedate': "16-06-27", 'columns': [0, 2, 4, 6, 8, 10, 12]},
     { 'name': "4 juli - 8 juli-Tabell 1.csv", 'basedate': "16-07-04", 'columns': [0, 2, 4, 6, 8]},
     { 'name': "8 aug - 14 aug-Tabell 1.csv", 'basedate': "16-08-08", 'columns': [0, 2, 4, 6, 8, 10, 12]},
