@@ -2,13 +2,6 @@
 
 This is my playground for experimenting with various things.
 
-##CvsJsonReport
-_Python3_
-
-Start with a csv file, convert do JSON documents and then apply functionality similar to MapReduce.
-
-Source data is "session details" from iOS app "TimePollice".
-
 ##FlattenFileStructure
 _Python3_
 
