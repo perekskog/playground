@@ -21,14 +21,12 @@ def character(c):
     return chr(ord(c))
 
 
-def main(infile, outfile):
-    fout = open(outfile, mode="w")
-    with open(infile, mode="rb") as fin:
+def main(filein, fileout):
+    fout = open(fileout, mode="w")
+    with open(filein, mode="rb") as fin:
         for ch in iter(lambda: fin.read(1), ''):
             if len(ch) == 1:
                 fout.write(character(ch))
-                #print(character(ch), ord(ch))
-                #print(ch)
             else:
                 break
 
