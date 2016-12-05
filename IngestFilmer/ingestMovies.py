@@ -6,7 +6,21 @@ def fetch_items(filein):
     movies = list()
     with open(filein, 'r', encoding='utf-8') as f:
         for row in f:
+            # file = [ comment | movie ]*
+            # comment = # string
+            # movie = disk SPACE title_with_attributes
+            # title_with_attributes =  title SPACE *format | COMMA § category | COMMA # language | COMMA & mirrored_on_mediaserver
+            # title = string [string SPACE]*
+            # language = audio SLASH subtitle
+            # mirrored_on_mediaserver = & ms
+
+            # comment
+            if row[0] == "#":
+                print("continue 1")
+                continue
             print(row)
+
+            # movie
     return movies
 
 
