@@ -21,6 +21,9 @@ def fetch_items(filein):
             print(row)
 
             # movie
+            tokens = row.split()
+            disk = tokens[0]
+            title_with_attributes = tokens.
     return movies
 
 
