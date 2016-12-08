@@ -18,18 +18,19 @@ def fetch_items(filein):
             if row[0] == "#":
                 print("continue 1")
                 continue
-            print(row)
+            print(">"+row)
 
             # movie
             tokens = row.split()
             disk = tokens[0]
-            title_with_attributes = tokens.
+            title_with_attributes = "_".join(tokens[1:])
+            print(title_with_attributes)
     return movies
 
 
 def main(filein, fileout):
     items = fetch_items(filein)
-    open(fileout, 'wb').write(json.dumps(items, sort_keys=True, indent=4, ensure_ascii=False).encode('utf8'))
+#    open(fileout, 'wb').write(json.dumps(items, sort_keys=True, indent=4, ensure_ascii=False).encode('utf8'))
 
 
 if __name__ == "__main__":
