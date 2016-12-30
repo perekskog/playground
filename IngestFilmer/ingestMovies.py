@@ -8,8 +8,9 @@ def fetch_items(filein):
         for row in f:
             # file = [ comment | movie ]*
             # comment = # string
-            # movie = disk SPACE title_with_attributes
-            # title_with_attributes =  title SPACE *format | COMMA § category | COMMA # language | COMMA & mirrored_on_mediaserver
+            # movie = disk TAB title_with_attributes
+            # title_with_attributes =  title TAB attributes
+            # attributes = *format | COMMA § category | COMMA # language | COMMA & mirrored_on_mediaserver
             # title = string [string SPACE]*
             # language = audio SLASH subtitle
             # mirrored_on_mediaserver = & ms
@@ -18,13 +19,49 @@ def fetch_items(filein):
             if row[0] == "#":
                 print("continue 1")
                 continue
-            print(">"+row)
 
-            # movie
-            tokens = row.split()
-            disk = tokens[0]
-            title_with_attributes = "_".join(tokens[1:])
-            print(title_with_attributes)
+            # wanted
+            if row.find("§wanted") > -1:
+                print("continue 2")
+                continue
+
+            print(">"+row.strip("\n)"))
+
+            # disk, title, attributes
+            tokens = row.split("\t")
+            disk = ""
+            title = ""
+            attributes = ""
+            if len(tokens) >=1:
+                disk = tokens[0].strip("\n")
+            if len(tokens) >= 2:
+                title = tokens[1].strip("\n")
+            if len(tokens) >= 3:
+                attributes = tokens[2].strip("\n")
+            print("disk=[{}], title=[{}]".format(disk, title))
+
+
+            # attributes
+            attr = attributes.split(",")
+            media = ""
+            lang = ""
+            category = []
+            mediaserver = False
+            for i in attr:
+                #print("<<{}>>".format(i))
+                i = i.strip(" ").strip("\n")
+                if len(i)==0:
+                    continue
+                if i.find("*") >= 0:
+                    media = i
+                if i.find("#") >= 0:
+                    lang = i
+                if i.find("§") >= 0:
+                    category.append(i)
+                if i.find("&ms") >= 0:
+                    mediaserver = True
+            print("\tmedia=[{}], lang=[{}], cat={}, ms=[{}]".format(media, lang, category, mediaserver))
+
     return movies
 
 
