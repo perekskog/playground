@@ -38,12 +38,14 @@ def fetch_items(filein):
                 title = tokens[1].strip("\n")
             if len(tokens) >= 3:
                 attributes = tokens[2].strip("\n")
-            print("disk=[{}], title=[{}]".format(disk, title))
+            print("disk=[{}], title=[{}], attributes=[{}]".format(disk, title, attributes))
 
 
             # attributes
             attr = attributes.split(",")
             media = ""
+            if len(attributes)==0:
+                media = "No attributes"
             languageSpoken = ""
             languageSubtitle = ""
             category = []
