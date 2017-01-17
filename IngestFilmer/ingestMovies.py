@@ -32,7 +32,7 @@ def fetch_items(filein):
             disk = ""
             title = ""
             attributes = ""
-            if len(tokens) >=1:
+            if len(tokens) >= 1:
                 disk = tokens[0].strip("\n")
             if len(tokens) >= 2:
                 title = tokens[1].strip("\n")
@@ -44,38 +44,47 @@ def fetch_items(filein):
             # attributes
             attr = attributes.split(",")
             media = ""
-            if len(attributes)==0:
-                media = "No attributes"
-            languageSpoken = ""
-            languageSubtitle = ""
+            if len(attributes) == 0 and title != "---":
+                media = "AttributeError"
+            if len(attributes) > 0 and attributes[0] == " ":
+                media = "AttributeError"
+            language_spoken = ""
+            language_subtitle = ""
             category = []
             onmediaserver = False
+            comment = ""
             for i in attr:
                 #print("<<{}>>".format(i))
                 i = i.strip(" ").strip("\n")
-                if len(i)==0:
+                if len(i) == 0:
                     continue
                 if i.find("*") >= 0:
                     media = i.strip("*")
                 if i.find("#") >= 0:
                     languages = i.strip("#").split("/")
-                    languageSpoken = languages[0]
+                    language_spoken = languages[0]
                     if len(languages) >= 2:
-                        languageSubtitle = languages[1]
+                        language_subtitle = languages[1]
                 if i.find("§") >= 0:
                     category.append(i.strip("§"))
                 if i.find("&ms") >= 0:
                     onmediaserver = True
-            print("\tmedia=[{}], spoken=[{}], subtitle=[{}], cat={}, ms=[{}]".format(media, languageSpoken, languageSubtitle, category, onmediaserver))
+                if i.find("/") >= 0:
+                    comment = i.strip("/")
+            print("\tmedia=[{}], spoken=[{}], subtitle=[{}], cat={}, ms=[{}], comment=[{}]".format(
+                media, language_spoken, language_subtitle, category, onmediaserver, comment))
 
-            movie = { "title": title, "disk": disk, "media": media, "audio": languageSpoken, "subtitle": languageSubtitle, "category": category, "mediaserver": onmediaserver }
+            movie = {"title": title, "disk": disk, "media": media, "audio": language_spoken,
+                     "subtitle": language_subtitle, "category": category,
+                     "mediaserver": onmediaserver, "comment": comment}
             movies.append(movie)
     return movies
 
 
 def main(filein, fileout):
     items = fetch_items(filein)
-    open(fileout, 'wb').write(json.dumps(items, sort_keys=False, indent=4, ensure_ascii=False).encode('utf8'))
+    open(fileout, 'wb').write(json.dumps(items, sort_keys=False, indent=4, ensure_ascii=False)
+                              .encode('utf8'))
 
 
 if __name__ == "__main__":
