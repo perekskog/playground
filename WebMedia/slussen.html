@@ -18,16 +18,14 @@ TODO
 */
 
 var movie = [
-    {start:"lb", stop:"rb", media:"media/Video 2015-10-17 18 00 10.mov"},
-    {start:"rb", stop:"lb", media:"media/Video 2015-10-17 18 00 24.mov"},
-    {start:"lb", stop:"lt", media:"media/Video 2015-10-17 18 00 33.mov"},
-    {start:"lt", stop:"lb", media:"media/Video 2015-10-17 18 00 39.mov"},
-    {start:"lt", stop:"rt", media:"media/Video 2015-10-17 18 00 46.mov"},
-    {start:"rt", stop:"lt", media:"media/Video 2015-10-17 18 00 52.mov"},
-    {start:"rb", stop:"rt", media:"media/Video 2015-10-17 18 01 00.mov"},
-    {start:"rt", stop:"rb", media:"media/Video 2015-10-17 18 01 05.mov"}
+    {start:"a", stop:"b", media:"media/a-b.mp4"},
+    {start:"a", stop:"c", media:"media/a-c.mp4"},
+    {start:"b", stop:"a", media:"media/b-a.mp4"},
+    {start:"b", stop:"c", media:"media/b-c.mp4"},
+    {start:"c", stop:"a", media:"media/c-a.mp4"},
+    {start:"c", stop:"d", media:"media/c-d.mp4"},
 ]
-var destination = "lb"
+var destination = "a"
 
 function handleEvent(e) {
 //    alert(e);

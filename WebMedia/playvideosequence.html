@@ -1,5 +1,7 @@
 <html>
-
+<!--
+- Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
+-->
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,7 +21,12 @@
 
 <script>
 var slussenVideo = document.getElementById("slussenvideo");
-slussenvideo.src = "media/a.mp4"
+slussenvideo.src = "media/film-1.mp4";
+slussenVideo.addEventListener('ended', function() {
+    slussenVideo.src= "media/film-2.mp4";
+    slussenVideo.play();
+})
+slussenVideo.play();
 </script>
 
 </body>
