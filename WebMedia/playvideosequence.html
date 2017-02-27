@@ -1,6 +1,8 @@
 <html>
 <!--
 - Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
+  Är det verkligen _add_ evenlistener, eller är det egentligen _set_,
+  för ett givet event?
 -->
 <head>
 
@@ -21,12 +23,18 @@
 
 <script>
 var slussenVideo = document.getElementById("slussenvideo");
-slussenvideo.src = "media/film-1.mp4";
+slussenvideo.src = "media/a-b.mp4";
 slussenVideo.addEventListener('ended', function() {
-    slussenVideo.src= "media/film-2.mp4";
+    slussenVideo.src= "media/b-c.mp4";
     slussenVideo.play();
 })
 slussenVideo.play();
+
+function f1() {
+    var slussenVideo = document.getElementById("slussenvideo");
+    slussenVideo.src = "media/c-d.mp4";
+    slussenvideo.play();    
+}
 </script>
 
 </body>
