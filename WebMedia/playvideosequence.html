@@ -17,23 +17,60 @@
 <body>
 
 <div class="video-player" align="center">
-    <video id="slussenvideo" height="500" width="700" controls>
+    <video id="video1" height="500" width="700" controls>
     </video>
+    <button id="play">Play</button>
+    <button id="hide">Hide</button>
+    <button id="show">Show</button>
+    <button id="run">Run</button>
 </div>
 
 <script>
-var slussenVideo = document.getElementById("slussenvideo");
-slussenvideo.src = "media/a-b.mp4";
-slussenVideo.addEventListener('ended', function() {
-    slussenVideo.src= "media/b-c.mp4";
-    slussenVideo.play();
-})
-slussenVideo.play();
+var video1 = document.getElementById("video1");
+video1.src = "media/film-1.mp4";
+video1.style.transition = "opacity 1s";
+video1.style.opacity = 0;
+document.getElementById("play").onclick = function() { play(video1); };
+document.getElementById("hide").onclick = function() { hide(video1); };
+document.getElementById("show").onclick = function() { show(video1); };
+document.getElementById("run").onclick = function() { run(video1); };
+//slussenVideo.style.opacity = 1;
+//slussenVideo.addEventListener('ended', function() {
+//    slussenVideo.src= "media/b-c.mp4";
+//    slussenVideo.play();
+//})
+//slussenVideo.play();
+
+function play(e) {
+    console.log("play");
+    e.play();
+}
+
+function hide(e) {
+    console.log("hide");
+    e.style.opacity = 0;
+}
+
+function show(e) {
+    console.log("show");
+    e.style.opacity = 1;
+}
+
+function run(e) {
+    show(e);
+    setTimeout(function() { playAndHide(e); }, 1000);
+}
+
+function playAndHide(e) {
+    console.log("play");
+    e.play();
+    setTimeout(function() { hide(e); }, 8000);
+}
 
 function f1() {
-    var slussenVideo = document.getElementById("slussenvideo");
-    slussenVideo.src = "media/c-d.mp4";
-    slussenvideo.play();    
+    var video1 = document.getElementById("video1");
+    video1.src = "media/c-d.mp4";
+    video1.play();    
 }
 </script>
 
