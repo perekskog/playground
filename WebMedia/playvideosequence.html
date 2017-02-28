@@ -12,15 +12,16 @@ v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
 <style>
 .video-player {
     border:1px solid black;
+    overflow:hidden;
+    height:400px;
+    background: #edeae8;
+    position:relative;
 }
 .video {
-
-    position: relative;
-    left:0px;
+    position:absolute;
     top:0px;
-
-    width:700px;
-    height:500px;
+    left:0px;
+    height: 400px;
     transition: opacity 4s;
     opacity:0;
     border:1px solid red;
@@ -52,7 +53,7 @@ var videos = [
     { id: "video2", length: 10},
     { id: "video3", length: 20}
 ];
-var  videoindex = 2;
+var  videoindex = 0;
 document.getElementById("play").onclick = function() {
     play(document.getElementById(videos[videoindex].id));
 }
