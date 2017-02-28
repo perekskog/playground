@@ -22,7 +22,7 @@ v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
     top:0px;
     left:0px;
     width: 100%;
-    transition: opacity 4s;
+    transition: opacity 3s;
     opacity:0;
     border:1px solid red;
 }
@@ -34,9 +34,9 @@ v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
 <body>
 
 <div class="video-player" align="center">
-    <video id="video1" src="media/film-1.mp4" class="video" controls></video>
-    <video id="video2" src="media/film-2.mp4" class="video" controls></video>
-    <video id="video3" src="media/film-3.mp4" class="video" controls></video>
+    <video id="video1" src="media/film-1.mp4" class="video"></video>
+    <video id="video2" src="media/film-2.mp4" class="video"></video>
+    <video id="video3" src="media/film-3.mp4" class="video"></video>
     
 </div>
 <div>
@@ -49,10 +49,12 @@ v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
 
 <script>
 var videos = [
-    { id: "video1", length: 10},
-    { id: "video2", length: 10},
-    { id: "video3", length: 20}
+    { id: "video1", length: 10000},
+    { id: "video2", length: 10000},
+    { id: "video3", length: 10000}
 ];
+var transitionLength = 3000;
+
 var  videoindex = 0;
 document.getElementById("play").onclick = function() {
     play(document.getElementById(videos[videoindex].id));
@@ -67,7 +69,7 @@ document.getElementById("run").onclick = function() {
     run(document.getElementById(videos[videoindex].id));
 };
 document.getElementById("showall").onclick = function() {
-    showall(0);
+    showall1(0);
 };
 
 
@@ -102,24 +104,19 @@ function run3(e) {
     //  Call run(e) with next e as argument
 }
 
-function showall(i) {
-    e = document.getElementById(videos[i].id)
-    show(e);
-    play(e)
-    setTimeout(function() { showall3(i); }, 6000);
+function showall1(i) {
+    e = document.getElementById(videos[i].id);
+    length = videos[i].length;
+    e.style.opacity = 0.95;
+    e.play();
+    setTimeout(function() { showall2(i); }, length-transitionLength);
 }
 
-// function showall2(i) {
-//     e = document.getElementById(videos[i].id)
-//     play(e);
-//     setTimeout(function() { showall3(i); }, 8000);
-// }
-
-function showall3(i) {
+function showall2(i) {
     e = document.getElementById(videos[i].id)
-    hide(e);
+    e.style.opacity = 0.0;
     if (i < videos.length-1) {
-        showall(i+1);
+        setTimeout(function() { showall1(i+1); }, transitionLength/2);
     }
 }
 
