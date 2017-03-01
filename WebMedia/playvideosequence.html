@@ -1,14 +1,6 @@
 <html>
-<!--
-v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
-  Är det verkligen _add_ evenlistener, eller är det egentligen _set_,
-  för ett givet event?
-  => Eventlyssnare ska tas bort, men då måste de existera som namngivna funktioner.
--->
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 <style>
 .video-player {
     border:1px solid black;
@@ -27,12 +19,8 @@ v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
     border:1px solid red;
 }
 </style>
-
-
 </head>
-
 <body>
-
 <div class="video-player" align="center">
     <video id="video1" src="media/film-1.mp4" class="video"></video>
     <video id="video2" src="media/film-2.mp4" class="video"></video>
@@ -43,66 +31,30 @@ v Kanske jag måste ta bort gamla eventlyssnaren när den aktiverats?
     <button id="play">Play</button>
     <button id="hide">Hide</button>
     <button id="show">Show</button>
-    <button id="run">Run</button>
     <button id="showall">Show all</button>
 </div>
 
 <script>
 var videos = [
     { id: "video1", length: 10000},
-    { id: "video2", length: 10000},
+    { id: "video2", length: 5000},
     { id: "video3", length: 10000}
 ];
 var transitionLength = 3000;
 
 var  videoindex = 0;
 document.getElementById("play").onclick = function() {
-    play(document.getElementById(videos[videoindex].id));
+    document.getElementById(videos[videoindex].id).play();
 }
 document.getElementById("hide").onclick = function() { 
-    hide(document.getElementById(videos[videoindex].id));
+    document.getElementById(videos[videoindex].id).style.opacity = 0;
 };
 document.getElementById("show").onclick = function() { 
-    show(document.getElementById(videos[videoindex].id));
-};
-document.getElementById("run").onclick = function() {
-    run(document.getElementById(videos[videoindex].id));
+    document.getElementById(videos[videoindex].id).style.opacity = 0.95
 };
 document.getElementById("showall").onclick = function() {
     showall1(0);
 };
-
-
-function play(e) {
-    console.log("play");
-    e.play();
-}
-
-function hide(e) {
-    console.log("hide");
-    e.style.opacity = 0;
-}
-
-function show(e) {
-    console.log("show");
-    e.style.opacity = 1;
-}
-
-function run(e) {
-    show(e);
-    setTimeout(function() { run2(e); }, 1000);
-}
-
-function run2(e) {
-    play(e);
-    setTimeout(function() { run3(e); }, 8000);
-}
-
-function run3(e) {
-    hide(e);
-    // If more movies
-    //  Call run(e) with next e as argument
-}
 
 function showall1(i) {
     e = document.getElementById(videos[i].id);
@@ -120,13 +72,7 @@ function showall2(i) {
     }
 }
 
-function f1() {
-    var video1 = document.getElementById("video1");
-    video1.src = "media/c-d.mp4";
-    video1.play();    
-}
 </script>
 
 </body>
-
 </html>
