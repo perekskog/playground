@@ -1,6 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <style>
 .video-player {
     border:1px solid black;
@@ -46,13 +47,15 @@
     <button id="showall">Show all</button>
 </div>
 
+<script src="scripts/jquery-3.1.1.js"></script>
+
 <script>
-var videosX = [
+var videos = [
     { id: "video1", length: 10000},
     { id: "video2", length: 5000},
     { id: "video3", length: 10000}
 ];
-var videos = [
+var videosX = [
     { id: "bild1", length: 10000},
     { id: "bild2", length: 10000},
     { id: "bild3", length: 10000}
@@ -77,7 +80,9 @@ function showall1(i) {
     e = document.getElementById(videos[i].id);
     length = videos[i].length;
     e.style.opacity = 0.95;
-    //e.play();
+    // Check if has class "video", then play it:
+    if($(e).hasClass("video"))
+        e.play();
     setTimeout(function() { showall2(i); }, length-transitionLength);
 }
 
