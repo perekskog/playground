@@ -6,7 +6,7 @@
 .video-player {
     border:1px solid black;
     overflow:hidden;
-    height:400px;
+    height:200px;
     background: #edeae8;
     position:relative;
 }
@@ -35,11 +35,14 @@
     <video id="video1" src="media/film-1.mp4" class="video"></video>
     <video id="video2" src="media/film-2.mp4" class="video"></video>
     <video id="video3" src="media/film-3.mp4" class="video"></video>
+</div>
+
+<div class="video-player" align="center">
     <img id="bild1" src="media/bild-1.jpg" class="bild"></img>
     <img id="bild2" src="media/bild-2.jpg" class="bild"></img>
-    <img id="bild3" src="media/bild-3.jpg" class="bild"></img>
-    
+    <img id="bild3" src="media/bild-3.jpg" class="bild"></img>    
 </div>
+
 <div>
     <button id="play">Play</button>
     <button id="hide">Hide</button>
@@ -50,17 +53,75 @@
 <script src="scripts/jquery-3.1.1.js"></script>
 
 <script>
-var videos = [
+var videosX = [
     { id: "video1", length: 10000},
     { id: "video2", length: 5000},
     { id: "video3", length: 10000}
 ];
-var videosX = [
+var videos = [
     { id: "bild1", length: 10000},
-    { id: "bild2", length: 10000},
+    { id: "bild2", length: 5000},
     { id: "bild3", length: 10000}
 ]
 var transitionLength = 3000;
+
+var videoCells = [
+    { id: "bild1", length: 10000},
+    { id: "bild2", length: 5000},
+    { id: "bild3", length: 10000}
+]
+/*
+// Play sequence a set number of times
+playSequence(id, cells, reps, continue);
+// Play sequence randomly for set time
+playRandom(id, cells, timeout, continue);
+// Wait for sequece to complete
+waitFor(id, continue)
+// Stop sequence
+finish(id, continue)
+
+Ex.
+function playInitialAutumn() {
+    playRandom("autumnpics", autumnPics, -1, function() {})
+    playSequence("autumn", autumnAudio, 1, function() {
+        finish("autumnpics", playWinter);
+    });
+}
+
+function playWinter() {
+    kill("autumnPics");
+    playRandom("winterpics", winterPics, -1, function() {})
+    playSequence("winter", winterAudio, 1, function() {
+        finish("winterpics", playSpring);
+    });
+})
+
+function playSpring() {
+    kill("winterPics);
+    playRandom("springpics", springPics, -1, function() {})
+    playSequence("spring", springAudio, 1, function() {
+        finish("springpics", playSummer);
+    });
+})
+
+function playSummer() {
+    kill("springPics);
+    playRandom("summerpics", summerPics, -1, function() {})
+    playSequence("summer", summerAudio, 1, function() {
+        finish("summerpics", playAutumn);
+    });
+})
+
+function playAutumn() {
+    kill("summerPics);
+    playRandom("autumnpics", autumnPics, -1, function() {})
+    playSequence("autumn", autumnAudio, 1, function() {
+        finish("autumnpics", playWinter);
+    });
+})
+
+*/
+
 
 var  videoindex = 0;
 document.getElementById("play").onclick = function() {
