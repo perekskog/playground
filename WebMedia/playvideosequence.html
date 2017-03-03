@@ -71,15 +71,7 @@ var videoCells = [
     { id: "bild3", length: 10000}
 ]
 /*
-// Play sequence a set number of times
-playSequence(id, cells, reps, continue);
-playSequenceFinish(id, cells, reps, timout, continue);
-// Play sequence randomly for set time
-playRandom(id, cells, timeout, continue);
-// Wait for sequece to complete
-waitFor(id, continue)
-// Stop sequence
-finish(id, continue)
+Animation outline "de fyra årstiderna"
 
 Ex.
 function playInitialAutumn() {
@@ -90,7 +82,6 @@ function playInitialAutumn() {
 }
 
 function playWinter() {
-    kill("autumnPics");
     playRandom("winterpics", winterPics, -1, function() {})
     playSequence("winter", winterAudio, 1, function() {
         finish("winterpics", playSpring);
@@ -98,7 +89,6 @@ function playWinter() {
 })
 
 function playSpring() {
-    kill("winterPics);
     playRandom("springpics", springPics, -1, function() {})
     playSequence("spring", springAudio, 1, function() {
         finish("springpics", playSummer);
@@ -106,7 +96,6 @@ function playSpring() {
 })
 
 function playSummer() {
-    kill("springPics);
     playRandom("summerpics", summerPics, -1, function() {})
     playSequence("summer", summerAudio, 1, function() {
         finish("summerpics", playAutumn);
@@ -114,7 +103,6 @@ function playSummer() {
 })
 
 function playAutumn() {
-    kill("summerPics);
     playRandom("autumnpics", autumnPics, -1, function() {})
     playSequence("autumn", autumnAudio, 1, function() {
         finish("autumnpics", playWinter);
