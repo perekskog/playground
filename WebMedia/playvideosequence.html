@@ -10,6 +10,13 @@
     background: #edeae8;
     position:relative;
 }
+.audio-player {
+    border:1px solid blue;
+    overflow:hidden;
+    height:200px;
+    background: #edeae8;
+    position:relative;
+}
 .video {
     position:absolute;
     top:0px;
@@ -28,9 +35,26 @@
     opacity:0;
     border:1px solid red;
 }
+.audio {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    border:1px solid red;
+}
 </style>
 </head>
 <body>
+
+<div>
+    <button id="play">Play</button>
+    <button id="hide">Hide</button>
+    <button id="show">Show</button>
+    <button id="showall1">Show all videos</button>
+    <button id="showall2">Show all images</button>
+    <button id="showall3">Show all audio</button>
+</div>
+
 <div class="video-player" align="center">
     <video id="video1" src="media/film-1.mp4" class="video"></video>
     <video id="video2" src="media/film-2.mp4" class="video"></video>
@@ -43,107 +67,108 @@
     <img id="bild3" src="media/bild-3.jpg" class="bild"></img>    
 </div>
 
-<div>
-    <button id="play">Play</button>
-    <button id="hide">Hide</button>
-    <button id="show">Show</button>
-    <button id="showall">Show all</button>
-</div>
+<div class="audio-player" align="center" copntrols>
+    <audio id="audio1" src="media/audio-1.mp3" class="audio" type="audio/mpeg"></audio>
+    <audio id="audio2" src="media/audio-2.mp3" class="audio" type="audio/mpeg"></audio>
+    <audio id="audio3" src="media/audio-3.mp3" class="audio" type="audio/mpeg"></audio>
+</audio>
+
 
 <script src="scripts/jquery-3.1.1.js"></script>
 
 <script>
-var videosX = [
+var videos = [
     { id: "video1", length: 10000},
-    { id: "video2", length: 5000},
+    { id: "video2", length: 7000},
     { id: "video3", length: 10000}
 ];
-var videos = [
+var images = [
     { id: "bild1", length: 10000},
-    { id: "bild2", length: 5000},
+    { id: "bild2", length: 7000},
     { id: "bild3", length: 10000}
+];
+var audio = [
+    { id: "audio1", length: 10000},
+    { id: "audio3", length: 7000},
+    { id: "audio2", length: 10000}
 ]
-var transitionLength = 3000;
 
-var videoCells = [
-    { id: "bild1", length: 10000},
-    { id: "bild2", length: 5000},
-    { id: "bild3", length: 10000}
-]
-/*
-Animation outline "de fyra årstiderna"
-
-Ex.
-function playInitialAutumn() {
-    playRandom("autumnpics", autumnPics, -1, function() {})
-    playSequence("autumn", autumnAudio, 1, function() {
-        finish("autumnpics", playWinter);
-    });
-}
-
-function playWinter() {
-    playRandom("winterpics", winterPics, -1, function() {})
-    playSequence("winter", winterAudio, 1, function() {
-        finish("winterpics", playSpring);
-    });
-})
-
-function playSpring() {
-    playRandom("springpics", springPics, -1, function() {})
-    playSequence("spring", springAudio, 1, function() {
-        finish("springpics", playSummer);
-    });
-})
-
-function playSummer() {
-    playRandom("summerpics", summerPics, -1, function() {})
-    playSequence("summer", summerAudio, 1, function() {
-        finish("summerpics", playAutumn);
-    });
-})
-
-function playAutumn() {
-    playRandom("autumnpics", autumnPics, -1, function() {})
-    playSequence("autumn", autumnAudio, 1, function() {
-        finish("autumnpics", playWinter);
-    });
-})
-
-*/
-
-
-var  videoindex = 0;
 document.getElementById("play").onclick = function() {
-    document.getElementById(videos[videoindex].id).play();
+    document.getElementById(videos[0].id).play();
 }
 document.getElementById("hide").onclick = function() { 
-    document.getElementById(videos[videoindex].id).style.opacity = 0;
+    document.getElementById(videos[0].id).style.opacity = 0;
 };
 document.getElementById("show").onclick = function() { 
-    document.getElementById(videos[videoindex].id).style.opacity = 0.95
+    document.getElementById(videos[0].id).style.opacity = 0.95
 };
-document.getElementById("showall").onclick = function() {
-    showall1(0);
+document.getElementById("showall1").onclick = function() {
+    playAnimateOpacity("videos", videos, 3000);
 };
+document.getElementById("showall2").onclick = function() {
+    playAnimateOpacity("images", images, 3000);
+};
+document.getElementById("showall3").onclick = function() {
+    playAnimateVolume("audio", audio, 3000);
+}
 
-function showall1(i) {
-    e = document.getElementById(videos[i].id);
-    length = videos[i].length;
+
+
+
+
+function playAnimateOpacity(sequencename, media, transitionLength) {
+    playAnimateOpacity1(media, 0, transitionLength);
+}
+
+function playAnimateOpacity1(media, index, transitionLength) {
+    e = document.getElementById(media[index].id);
+    length = videos[index].length;
     e.style.opacity = 0.95;
     // Check if has class "video", then play it:
     if($(e).hasClass("video"))
         e.play();
-    setTimeout(function() { showall2(i); }, length-transitionLength);
+    setTimeout(function() { 
+        playAnimateOpacity2(media, index, transitionLength); 
+    }, length-transitionLength);
 }
 
-function showall2(i) {
-    e = document.getElementById(videos[i].id)
+function playAnimateOpacity2(media, index, transitionLength) {
+    e = document.getElementById(media[index].id)
     e.style.opacity = 0.0;
-    if (i < videos.length-1) {
-        setTimeout(function() { showall1(i+1); }, transitionLength/2);
+    if (index < media.length-1) {
+        setTimeout(function() { 
+            playAnimateOpacity1(media, index+1, transitionLength); 
+            }, transitionLength/2);
     }
 }
 
+
+
+
+function playAnimateVolume(sequencename, media, transitionLength) {
+    playAnimateVolume1(media, 0, transitionLength);
+}
+
+function playAnimateVolume1(media, index, transitionLength) {
+    e = document.getElementById(media[index].id);
+    e.volume = 0;
+    length = videos[index].length;
+    e.play();
+    $(e).animate({volume: 0.95}, transitionLength);
+    setTimeout(function() { 
+        playAnimateVolume2(media, index, transitionLength); 
+    }, length-transitionLength);
+}
+
+function playAnimateVolume2(media, index, transitionLength) {
+    e = document.getElementById(media[index].id)
+    $(e).animate({volume: 0.0}, transitionLength);
+    if (index < media.length-1) {
+        setTimeout(function() { 
+            playAnimateVolume1(media, index+1, transitionLength); 
+            }, transitionLength/2);
+    }
+}
 </script>
 
 </body>
