@@ -78,20 +78,42 @@
 
 <script>
 var videos = [
-    { id: "video1", length: 10000},
-    { id: "video2", length: 7000},
-    { id: "video3", length: 10000}
+    { id: "video1", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
+    { id: "video2", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
+    { id: "video3", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000}
 ];
 var images = [
-    { id: "bild1", length: 10000},
-    { id: "bild2", length: 7000},
-    { id: "bild3", length: 10000}
+    { id: "bild1", mediaIn: 0, mediaOut: 0, lengthMin: 0, lengthMax: 10000},
+    { id: "bild2", mediaIn: 0, mediaOut: 0, lengthMin: 0, lengthMax: 10000},
+    { id: "bild3", mediaIn: 0, mediaOut: 0, lengthMin: 0, lengthMax: 10000}
 ];
 var audio = [
-    { id: "audio1", length: 7000},
-    { id: "audio3", length: 7000},
-    { id: "audio2", length: 7000}
+    { id: "audio1", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
+    { id: "audio3", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
+    { id: "audio2", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000}
 ]
+
+function getPlaybackInterval(mediaIn, mediaOut, lengthMin, lengthMax)
+{
+    console.log("getPlaybackInterval(" + mediaIn + ", " + mediaOut + ", " + lengthMin + ", " + lengthMax + ")");
+    var intervalStart = Math.random()*(mediaOut-mediaIn) + mediaIn;
+    var intervalLength = Math.random()*(lengthMax-lengthMin) + lengthMin;
+    if (intervalStart+intervalLength > mediaOut) {
+        intervalStart = intervalStart - (intervalStart+intervalLength-mediaOut);
+    }
+    console.log("=> start:" + intervalStart + ", length:" + intervalLength);
+    var interval = { start: intervalStart, length: intervalLength };
+    return interval;
+}
+
+function max(a, b)
+{
+    if (a>b) {
+        return a;
+    } else {
+        return b;
+    }
+}
 
 document.getElementById("play").onclick = function() {
     document.getElementById(videos[0].id).play();
@@ -103,15 +125,15 @@ document.getElementById("show").onclick = function() {
     document.getElementById(videos[0].id).style.opacity = 0.95
 };
 document.getElementById("showall1").onclick = function() {
-    playAnimateOpacity("videos", videos, 3000, false);
+    perekskog.playAnimateOpacity("videos", videos, 1000, false);
 };
 document.getElementById("showall2").onclick = function() {
-    perekskog.playAnimateOpacity("images", images, 3000, true);
+    perekskog.playAnimateOpacity("images", images, 1000, true);
 };
 document.getElementById("showall3").onclick = function() {
-//    var x = new PlayerChangeVolume("audio", audio, 3000);
+//    var x = new PlayerChangeVolume("audio", audio, 1000);
 //    x.play();
-    playAnimateVolume("audio", audio, 3000, true);
+    playAnimateVolume("audio", audio, 1000, true);
 }
 
 
@@ -154,7 +176,8 @@ playAnimateOpacity: function(sequencename, media, transitionLength, random) {
 
 playAnimateOpacity1: function(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
-    length = videos[index].length;
+    interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
+    length = max(transitionLength, interval.length);
     e.style.opacity = 0.95;
     // Check if has class "video", then play it:
     if($(e).hasClass("video"))
@@ -195,7 +218,8 @@ function playAnimateVolume(sequencename, media, transitionLength, random) {
 function playAnimateVolume1(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
     e.volume = 0;
-    length = videos[index].length;
+    interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
+    length = max(transitionLength, interval.length);
     e.pause()
     e.currentTime = 0
     e.play();
