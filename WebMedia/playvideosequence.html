@@ -71,7 +71,7 @@
     <audio id="audio1" src="media/audio-1.mp3" class="audio" type="audio/mpeg"></audio>
     <audio id="audio2" src="media/audio-2.mp3" class="audio" type="audio/mpeg"></audio>
     <audio id="audio3" src="media/audio-3.mp3" class="audio" type="audio/mpeg"></audio>
-</audio>
+</div>
 
 
 <script src="scripts/jquery-3.1.1.js"></script>
@@ -88,9 +88,9 @@ var images = [
     { id: "bild3", length: 10000}
 ];
 var audio = [
-    { id: "audio1", length: 10000},
+    { id: "audio1", length: 7000},
     { id: "audio3", length: 7000},
-    { id: "audio2", length: 10000}
+    { id: "audio2", length: 7000}
 ]
 
 document.getElementById("play").onclick = function() {
@@ -103,24 +103,56 @@ document.getElementById("show").onclick = function() {
     document.getElementById(videos[0].id).style.opacity = 0.95
 };
 document.getElementById("showall1").onclick = function() {
-    playAnimateOpacity("videos", videos, 3000);
+    playAnimateOpacity("videos", videos, 3000, false);
 };
 document.getElementById("showall2").onclick = function() {
-    playAnimateOpacity("images", images, 3000);
+    perekskog.playAnimateOpacity("images", images, 3000, true);
 };
 document.getElementById("showall3").onclick = function() {
-    playAnimateVolume("audio", audio, 3000);
+//    var x = new PlayerChangeVolume("audio", audio, 3000);
+//    x.play();
+    playAnimateVolume("audio", audio, 3000, true);
 }
 
 
 
+class PlayerChangeOpacity
+{
+    constructor(id, media, transition) {
+        this.id = id;
+        this.media = media;
+        this.transition = transition;
+    };
+
+    play() {
+        console.log("x.Play the anim");
+        playAnimateOpacity1(this.media, 0, this.transitionLength, false);        
+    };
+};
+
+class PlayerChangeVolume
+{
+    constructor(id, media, transition) {
+        this.id = id;
+        this.media = media;
+        this.transition = transition;
+    };
+
+    play() {
+        console.log("x.Play the anim");
+        playAnimateVolume(this.id, this.media, this.transitionLength, false);        
+    };
+};
 
 
-function playAnimateOpacity(sequencename, media, transitionLength) {
-    playAnimateOpacity1(media, 0, transitionLength);
-}
 
-function playAnimateOpacity1(media, index, transitionLength) {
+var perekskog = {
+
+playAnimateOpacity: function(sequencename, media, transitionLength, random) {
+    perekskog.playAnimateOpacity1(media, 0, transitionLength, random);
+},
+
+playAnimateOpacity1: function(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
     length = videos[index].length;
     e.style.opacity = 0.95;
@@ -128,47 +160,71 @@ function playAnimateOpacity1(media, index, transitionLength) {
     if($(e).hasClass("video"))
         e.play();
     setTimeout(function() { 
-        playAnimateOpacity2(media, index, transitionLength); 
+        perekskog.playAnimateOpacity2(media, index, transitionLength, random); 
     }, length-transitionLength);
-}
+},
 
-function playAnimateOpacity2(media, index, transitionLength) {
+playAnimateOpacity2: function(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id)
     e.style.opacity = 0.0;
-    if (index < media.length-1) {
-        setTimeout(function() { 
-            playAnimateOpacity1(media, index+1, transitionLength); 
-            }, transitionLength/2);
+
+    if(random==true) {
+        index = Math.floor(Math.random() * media.length);
+    } else {
+        if (index < media.length-1) {
+            index = index + 1;
+        } else {
+            index = 0;
+        }
     }
+    console.log("Next image/video index = " + index);
+    
+    setTimeout(function() { 
+        perekskog.playAnimateOpacity1(media, index, transitionLength, random); 
+    }, transitionLength/2);
+}
+};
+
+
+
+
+function playAnimateVolume(sequencename, media, transitionLength, random) {
+    playAnimateVolume1(media, 0, transitionLength, random);
 }
 
-
-
-
-function playAnimateVolume(sequencename, media, transitionLength) {
-    playAnimateVolume1(media, 0, transitionLength);
-}
-
-function playAnimateVolume1(media, index, transitionLength) {
+function playAnimateVolume1(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
     e.volume = 0;
     length = videos[index].length;
+    e.pause()
+    e.currentTime = 0
     e.play();
     $(e).animate({volume: 0.95}, transitionLength);
     setTimeout(function() { 
-        playAnimateVolume2(media, index, transitionLength); 
+        playAnimateVolume2(media, index, transitionLength, random); 
     }, length-transitionLength);
 }
 
-function playAnimateVolume2(media, index, transitionLength) {
+function playAnimateVolume2(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id)
     $(e).animate({volume: 0.0}, transitionLength);
-    if (index < media.length-1) {
-        setTimeout(function() { 
-            playAnimateVolume1(media, index+1, transitionLength); 
-            }, transitionLength/2);
+    if(random==true) {
+        index = Math.floor(Math.random() * media.length);
+    } else {
+        if (index < media.length-1) {
+            index = index + 1;
+        } else {
+            index = 0;
+        }
     }
+    console.log("Next audio index = " + index);
+
+    setTimeout(function() { 
+        playAnimateVolume1(media, index, transitionLength, random);
+    }, transitionLength/2);
 }
+
+
 </script>
 
 </body>
