@@ -22,7 +22,7 @@
     top:0px;
     left:0px;
     width: 100%;
-    transition: opacity 3s;
+    transition: opacity 1s;
     opacity:0;
     border:1px solid red;
 }
@@ -31,7 +31,7 @@
     top:0px;
     left:0px;
     width: 100%;
-    transition: opacity 3s;
+    transition: opacity 1s;
     opacity:0;
     border:1px solid red;
 }
@@ -78,20 +78,20 @@
 
 <script>
 var videos = [
-    { id: "video1", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
-    { id: "video2", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
-    { id: "video3", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000}
+    { id: "video1", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
+    { id: "video2", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
+    { id: "video3", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000}
 ];
 var images = [
-    { id: "bild1", mediaIn: 0, mediaOut: 0, lengthMin: 0, lengthMax: 10000},
-    { id: "bild2", mediaIn: 0, mediaOut: 0, lengthMin: 0, lengthMax: 10000},
-    { id: "bild3", mediaIn: 0, mediaOut: 0, lengthMin: 0, lengthMax: 10000}
+    { id: "bild1", mediaIn: 0, mediaOut: 0, lengthMin: 2000, lengthMax: 10000},
+    { id: "bild2", mediaIn: 0, mediaOut: 0, lengthMin: 2000, lengthMax: 10000},
+    { id: "bild3", mediaIn: 0, mediaOut: 0, lengthMin: 2000, lengthMax: 10000}
 ];
 var audio = [
-    { id: "audio1", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
-    { id: "audio3", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000},
-    { id: "audio2", mediaIn: 0, mediaOut: 10000, lengthMin: 0, lengthMax: 10000}
-]
+    { id: "audio1", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
+    { id: "audio3", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
+    { id: "audio2", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000}
+];
 
 function getPlaybackInterval(mediaIn, mediaOut, lengthMin, lengthMax)
 {
@@ -182,6 +182,7 @@ playAnimateOpacity1: function(media, index, transitionLength, random) {
     // Check if has class "video", then play it:
     if($(e).hasClass("video"))
         e.play();
+        e.currentTime = interval.start / 1000;
     setTimeout(function() { 
         perekskog.playAnimateOpacity2(media, index, transitionLength, random); 
     }, length-transitionLength);
@@ -221,7 +222,7 @@ function playAnimateVolume1(media, index, transitionLength, random) {
     interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
     length = max(transitionLength, interval.length);
     e.pause()
-    e.currentTime = 0
+    e.currentTime = interval.start
     e.play();
     $(e).animate({volume: 0.95}, transitionLength);
     setTimeout(function() { 
