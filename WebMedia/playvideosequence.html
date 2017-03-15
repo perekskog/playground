@@ -54,7 +54,8 @@
     <button id="showall2">Images</button>
     <button id="showall2C">Images C</button>
     <button id="showall3">Audio</button>
-    <button id="stopOpacity">Stop O</button>
+    <button id="stopOpacity">Stop Opacity</button>
+    <button id="stopVolume">Stop Volume</button>
 </div>
 
 <div class="video-player" align="center">
@@ -143,7 +144,11 @@ document.getElementById("showall3").onclick = function() {
 }
 document.getElementById("stopOpacity").onclick = function() {
     clearTimeout(animateOpacityTimeout);
-    $(currentElementIn).animate({opacity:0}, 1000);
+    $(currentOpacityElementIn).animate({opacity:0}, 1000);
+}
+document.getElementById("stopVolume").onclick = function() {
+    clearTimeout(animateVolumeTimeout);
+    $(currentVolumeElementIn).animate({volume:0}, 1000);
 }
 
 
@@ -176,7 +181,9 @@ function PlayerChangeVolume(id, media, transition) {
 };
 
 var animateOpacityTimeout;
-var currentElementIn;
+var currentOpacityElementIn;
+var animateVolumeTimeout;
+var currentVolumeElementIn;
 
 var perekskog = {
 
@@ -186,7 +193,7 @@ playAnimateOpacity: function(sequencename, media, transitionLength, random) {
 
 playAnimateOpacity1: function(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
-    currentElementIn = e;
+    currentOpacityElementIn = e;
     $(e).animate({opacity: 0.95}, transitionLength);
 
     interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)    
@@ -237,6 +244,8 @@ function playAnimateVolume(sequencename, media, transitionLength, random) {
 
 function playAnimateVolume1(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
+    currentVolumeElementIn = e;
+
     e.volume = 0;
     interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
     length = max(transitionLength, interval.length);
@@ -244,7 +253,7 @@ function playAnimateVolume1(media, index, transitionLength, random) {
     e.currentTime = interval.start / 1000;
     e.play();
     $(e).animate({volume: 0.95}, transitionLength);
-    setTimeout(function() { 
+    animateVolumeTimeout = setTimeout(function() { 
         playAnimateVolume2(media, index, transitionLength, random); 
     }, length-transitionLength);
 }
@@ -263,7 +272,7 @@ function playAnimateVolume2(media, index, transitionLength, random) {
     }
     console.log("Next audio index = " + index);
 
-    setTimeout(function() { 
+    animateVolumeTimeout = setTimeout(function() { 
         playAnimateVolume1(media, index, transitionLength, random);
     }, transitionLength/2);
 }
