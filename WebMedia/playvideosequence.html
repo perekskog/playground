@@ -175,6 +175,8 @@ class PlayerChangeVolume
 
 var perekskog = {
 
+var animateOpacityTimeout;
+
 playAnimateOpacity: function(sequencename, media, transitionLength, random) {
     perekskog.playAnimateOpacity1(media, 0, transitionLength, random);
 },
@@ -192,7 +194,7 @@ playAnimateOpacity1: function(media, index, transitionLength, random) {
     }
 
     length = max(transitionLength, interval.length);
-    setTimeout(function() { 
+    animateOpacityTimeout = setTimeout(function() { 
         perekskog.playAnimateOpacity2(media, index, transitionLength, random); 
     }, length-transitionLength);
 },
@@ -212,9 +214,13 @@ playAnimateOpacity2: function(media, index, transitionLength, random) {
     }
     console.log("Next image/video index = " + index);
     
-    setTimeout(function() { 
+    animateOpacityTimeout = setTimeout(function() { 
         perekskog.playAnimateOpacity1(media, index, transitionLength, random); 
     }, transitionLength/2);
+},
+finishAnimateOpacity: function() {
+    clearTimeout(animateOpacityTimeout);
+    $(e).animate({opacity: 0.0}, transitionLength);    
 }
 };
 
