@@ -54,6 +54,7 @@
     <button id="showall2">Images</button>
     <button id="showall2C">Images C</button>
     <button id="showall3">Audio</button>
+    <button id="stopOpacity">Stop O</button>
 </div>
 
 <div class="video-player" align="center">
@@ -137,6 +138,12 @@ document.getElementById("showall2C").onclick = function() {
 };
 document.getElementById("showall3").onclick = function() {
     playAnimateVolume("audio", audio, 1000, true);
+    let p = new PlayerChangeVolume("audio", audio, 1000, true);
+    p.play();
+}
+document.getElementById("stopOpacity").onclick = function() {
+    clearTimeout(animateOpacityTimeout);
+    $(currentElementIn).animate({opacity:0}, 1000);
 }
 
 
@@ -156,26 +163,22 @@ class PlayerChangeOpacity
     };
 };
 
-class PlayerChangeVolume
-{
-    constructor(id, media, transition) {
-        this.id = id;
-        this.media = media;
-        this.transition = transition;
-        this.random = random;
-    };
+function PlayerChangeVolume(id, media, transition) {
+    this.id = id;
+    this.media = media;
+    this.transition = transition;
+    this.random = random;
 
-    play() {
+    this.play() = function() {
         console.log("x.Play the anim");
         perekskog.playAnimateVolume(this.id, this.media, this.transition, this.random);        
     };
 };
 
-
+var animateOpacityTimeout;
+var currentElementIn;
 
 var perekskog = {
-
-var animateOpacityTimeout;
 
 playAnimateOpacity: function(sequencename, media, transitionLength, random) {
     perekskog.playAnimateOpacity1(media, 0, transitionLength, random);
@@ -183,6 +186,7 @@ playAnimateOpacity: function(sequencename, media, transitionLength, random) {
 
 playAnimateOpacity1: function(media, index, transitionLength, random) {
     e = document.getElementById(media[index].id);
+    currentElementIn = e;
     $(e).animate({opacity: 0.95}, transitionLength);
 
     interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)    
@@ -200,7 +204,7 @@ playAnimateOpacity1: function(media, index, transitionLength, random) {
 },
 
 playAnimateOpacity2: function(media, index, transitionLength, random) {
-    e = document.getElementById(media[index].id)
+    e = document.getElementById(media[index].id);
     $(e).animate({opacity: 0.0}, transitionLength);
 
     if(random==true) {
