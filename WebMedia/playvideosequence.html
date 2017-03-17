@@ -240,31 +240,31 @@ class PlayerChangeVolume
 
     play() {
         console.log("x.Play the anim");
-        perekskog.playAnimateVolume1(this.media, 0, this.transition, this.random);        
+        this.playAnimateVolume1(this.media, 0, this.transition, this.random);
     };
 
     playAnimateVolume(sequencename, media, transitionLength, random) {
-        playAnimateVolume1(media, 0, transitionLength, random);
+        this.playAnimateVolume1(media, 0, transitionLength, random);
     };
 
     playAnimateVolume1(media, index, transitionLength, random) {
-        e = document.getElementById(media[index].id);
+        var e = document.getElementById(media[index].id);
         currentVolumeElementIn = e;
 
         e.volume = 0;
-        interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
-        length = max(transitionLength, interval.length);
+        var interval = perekskog.getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
+        var length = perekskog.max(transitionLength, interval.length);
         e.pause();
         e.currentTime = interval.start / 1000;
         e.play();
         $(e).animate({volume: 0.95}, transitionLength);
-        animateVolumeTimeout = setTimeout(function() { 
-            playAnimateVolume2(media, index, transitionLength, random); 
-        }, length-transitionLength);
+        animateVolumeTimeout = setTimeout(function(e) { 
+            e.playAnimateVolume2(media, index, transitionLength, random); 
+        }, length-transitionLength, this);
     };
 
     playAnimateVolume2(media, index, transitionLength, random) {
-        e = document.getElementById(media[index].id)
+        var e = document.getElementById(media[index].id)
         $(e).animate({volume: 0.0}, transitionLength);
         if(random==true) {
             index = Math.floor(Math.random() * media.length);
@@ -277,9 +277,9 @@ class PlayerChangeVolume
         }
         console.log("Next audio index = " + index);
 
-        animateVolumeTimeout = setTimeout(function() { 
-            playAnimateVolume1(media, index, transitionLength, random);
-        }, transitionLength/2);
+        animateVolumeTimeout = setTimeout(function(e) { 
+            e.playAnimateVolume1(media, index, transitionLength, random);
+        }, transitionLength/2, this);
     };
 
 };
