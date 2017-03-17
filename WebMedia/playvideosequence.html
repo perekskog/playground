@@ -50,10 +50,9 @@
     <button id="play">Play</button>
     <button id="hide">Hide</button>
     <button id="show">Show</button>
-    <button id="showall1">Videos</button>
-    <button id="showall2">Images</button>
-    <button id="showall2C">Images C</button>
-    <button id="showall3">Audio</button>
+    <button id="showVideos">Videos</button>
+    <button id="showImages">Images</button>
+    <button id="showAudio">Audio</button>
     <button id="stopOpacity">Stop Opacity</button>
     <button id="stopVolume">Stop Volume</button>
 </div>
@@ -96,27 +95,8 @@ var audio = [
     { id: "audio2", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000}
 ];
 
-function getPlaybackInterval(mediaIn, mediaOut, lengthMin, lengthMax)
-{
-    console.log("getPlaybackInterval(" + mediaIn + ", " + mediaOut + ", " + lengthMin + ", " + lengthMax + ")");
-    var intervalStart = Math.random()*(mediaOut-mediaIn) + mediaIn;
-    var intervalLength = Math.random()*(lengthMax-lengthMin) + lengthMin;
-    if (intervalStart+intervalLength > mediaOut) {
-        intervalStart = intervalStart - (intervalStart+intervalLength-mediaOut);
-    }
-    console.log("=> start:" + intervalStart + ", length:" + intervalLength);
-    var interval = { start: intervalStart, length: intervalLength };
-    return interval;
-}
 
-function max(a, b)
-{
-    if (a>b) {
-        return a;
-    } else {
-        return b;
-    }
-}
+
 
 document.getElementById("play").onclick = function() {
     document.getElementById(videos[0].id).play();
@@ -127,21 +107,21 @@ document.getElementById("hide").onclick = function() {
 document.getElementById("show").onclick = function() { 
     document.getElementById(videos[0].id).style.opacity = 0.95
 };
-document.getElementById("showall1").onclick = function() {
-    perekskog.playAnimateOpacity("videos", videos, 1000, false);
+
+document.getElementById("showVideos").onclick = function() {
+    let p = new PlayerChangeOpacity("videos", videos, 1000, false);
+    p.play();
 };
-document.getElementById("showall2").onclick = function() {
-    perekskog.playAnimateOpacity("images", images, 1000, true);
-};
-document.getElementById("showall2C").onclick = function() {
+document.getElementById("showImages").onclick = function() {
     let p = new PlayerChangeOpacity("images", images, 1000, true);
     p.play();
 };
-document.getElementById("showall3").onclick = function() {
-    //playAnimateVolume("audio", audio, 1000, true);
+document.getElementById("showAudio").onclick = function() {
     let p = new PlayerChangeVolume("audio", audio, 1000, true);
     p.play();
 }
+
+
 document.getElementById("stopOpacity").onclick = function() {
     clearTimeout(animateOpacityTimeout);
     $(currentOpacityElementIn).animate({opacity:0}, 1000);
@@ -153,7 +133,103 @@ document.getElementById("stopVolume").onclick = function() {
 
 
 
-class PlayerChangeOpacity
+
+var perekskog = {
+    getPlaybackInterval: function (mediaIn, mediaOut, lengthMin, lengthMax)
+    {
+        console.log("getPlaybackInterval(" + mediaIn + ", " + mediaOut + ", " + lengthMin + ", " + lengthMax + ")");
+        var intervalStart = Math.random()*(mediaOut-mediaIn) + mediaIn;
+        var intervalLength = Math.random()*(lengthMax-lengthMin) + lengthMin;
+        if (intervalStart+intervalLength > mediaOut) {
+            intervalStart = intervalStart - (intervalStart+intervalLength-mediaOut);
+        }
+        console.log("=> start:" + intervalStart + ", length:" + intervalLength);
+        var interval = { start: intervalStart, length: intervalLength };
+        return interval;
+    },
+
+    max: function(a, b)
+    {
+        if (a>b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+};
+
+
+var animateOpacityTimeout;
+var currentOpacityElementIn;
+var animateVolumeTimeout;
+var currentVolumeElementIn;
+
+
+function PlayerChangeOpacity(id, media, transition, random) {
+    this.id = id;
+    this.media = media;
+    this.transition = transition;
+    this.random = random;
+
+    this.play = function() {
+        console.log("x.Play the anim");
+        this.playAnimateOpacity(this.id, this.media, this.transition, this.random);        
+    };
+
+    this.playAnimateOpacity = function(sequencename, media, transitionLength, random) {
+        this.playAnimateOpacity1(media, 0, transitionLength, random);
+    };
+
+    this.playAnimateOpacity1 = function(media, index, transitionLength, random) {
+        e = document.getElementById(media[index].id);
+        currentOpacityElementIn = e;
+        $(e).animate({opacity: 0.95}, transitionLength);
+
+        interval = perekskog.getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)    
+
+        // Check if has class "video", then play it:
+        if($(e).hasClass("video")) {
+            e.currentTime = Math.floor(interval.start / 1000);
+            e.play();
+        }
+
+        length = perekskog.max(transitionLength, interval.length);
+        animateOpacityTimeout = setTimeout(function(e) { 
+            e.playAnimateOpacity2(media, index, transitionLength, random); 
+        }, length-transitionLength, this);
+    };
+
+    this.playAnimateOpacity2 = function(media, index, transitionLength, random) {
+        e = document.getElementById(media[index].id);
+        $(e).animate({opacity: 0.0}, transitionLength);
+
+        if(random==true) {
+            index = Math.floor(Math.random() * media.length);
+        } else {
+            if (index < media.length-1) {
+                index = index + 1;
+            } else {
+                index = 0;
+            }
+        }
+        console.log("Next image/video index = " + index);
+        
+        animateOpacityTimeout = setTimeout(function(e) { 
+            e.playAnimateOpacity1(media, index, transitionLength, random); 
+        }, transitionLength/2, this);
+    };
+
+    this.finishAnimateOpacity = function() {
+        clearTimeout(animateOpacityTimeout);
+        $(e).animate({opacity: 0.0}, transitionLength);    
+    };
+};
+
+
+
+
+
+class PlayerChangeVolume
 {
     constructor(id, media, transition, random) {
         this.id = id;
@@ -164,118 +240,50 @@ class PlayerChangeOpacity
 
     play() {
         console.log("x.Play the anim");
-        perekskog.playAnimateOpacity1(this.media, 0, this.transition, this.random);        
+        perekskog.playAnimateVolume1(this.media, 0, this.transition, this.random);        
     };
-};
 
-function PlayerChangeVolume(id, media, transition, random) {
-    this.id = id;
-    this.media = media;
-    this.transition = transition;
-    this.random = random;
-
-    this.play = function() {
-        console.log("x.Play the anim");
-        playAnimateVolume(this.id, this.media, this.transition, this.random);        
+    playAnimateVolume(sequencename, media, transitionLength, random) {
+        playAnimateVolume1(media, 0, transitionLength, random);
     };
-};
 
-var animateOpacityTimeout;
-var currentOpacityElementIn;
-var animateVolumeTimeout;
-var currentVolumeElementIn;
+    playAnimateVolume1(media, index, transitionLength, random) {
+        e = document.getElementById(media[index].id);
+        currentVolumeElementIn = e;
 
-var perekskog = {
-
-playAnimateOpacity: function(sequencename, media, transitionLength, random) {
-    perekskog.playAnimateOpacity1(media, 0, transitionLength, random);
-},
-
-playAnimateOpacity1: function(media, index, transitionLength, random) {
-    e = document.getElementById(media[index].id);
-    currentOpacityElementIn = e;
-    $(e).animate({opacity: 0.95}, transitionLength);
-
-    interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)    
-
-    // Check if has class "video", then play it:
-    if($(e).hasClass("video")) {
-        e.currentTime = Math.floor(interval.start / 1000);
+        e.volume = 0;
+        interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
+        length = max(transitionLength, interval.length);
+        e.pause();
+        e.currentTime = interval.start / 1000;
         e.play();
-    }
+        $(e).animate({volume: 0.95}, transitionLength);
+        animateVolumeTimeout = setTimeout(function() { 
+            playAnimateVolume2(media, index, transitionLength, random); 
+        }, length-transitionLength);
+    };
 
-    length = max(transitionLength, interval.length);
-    animateOpacityTimeout = setTimeout(function() { 
-        perekskog.playAnimateOpacity2(media, index, transitionLength, random); 
-    }, length-transitionLength);
-},
-
-playAnimateOpacity2: function(media, index, transitionLength, random) {
-    e = document.getElementById(media[index].id);
-    $(e).animate({opacity: 0.0}, transitionLength);
-
-    if(random==true) {
-        index = Math.floor(Math.random() * media.length);
-    } else {
-        if (index < media.length-1) {
-            index = index + 1;
+    playAnimateVolume2(media, index, transitionLength, random) {
+        e = document.getElementById(media[index].id)
+        $(e).animate({volume: 0.0}, transitionLength);
+        if(random==true) {
+            index = Math.floor(Math.random() * media.length);
         } else {
-            index = 0;
+            if (index < media.length-1) {
+                index = index + 1;
+            } else {
+                index = 0;
+            }
         }
-    }
-    console.log("Next image/video index = " + index);
-    
-    animateOpacityTimeout = setTimeout(function() { 
-        perekskog.playAnimateOpacity1(media, index, transitionLength, random); 
-    }, transitionLength/2);
-},
-finishAnimateOpacity: function() {
-    clearTimeout(animateOpacityTimeout);
-    $(e).animate({opacity: 0.0}, transitionLength);    
-}
+        console.log("Next audio index = " + index);
+
+        animateVolumeTimeout = setTimeout(function() { 
+            playAnimateVolume1(media, index, transitionLength, random);
+        }, transitionLength/2);
+    };
+
 };
 
-
-
-
-function playAnimateVolume(sequencename, media, transitionLength, random) {
-    playAnimateVolume1(media, 0, transitionLength, random);
-}
-
-function playAnimateVolume1(media, index, transitionLength, random) {
-    e = document.getElementById(media[index].id);
-    currentVolumeElementIn = e;
-
-    e.volume = 0;
-    interval = getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
-    length = max(transitionLength, interval.length);
-    e.pause();
-    e.currentTime = interval.start / 1000;
-    e.play();
-    $(e).animate({volume: 0.95}, transitionLength);
-    animateVolumeTimeout = setTimeout(function() { 
-        playAnimateVolume2(media, index, transitionLength, random); 
-    }, length-transitionLength);
-}
-
-function playAnimateVolume2(media, index, transitionLength, random) {
-    e = document.getElementById(media[index].id)
-    $(e).animate({volume: 0.0}, transitionLength);
-    if(random==true) {
-        index = Math.floor(Math.random() * media.length);
-    } else {
-        if (index < media.length-1) {
-            index = index + 1;
-        } else {
-            index = 0;
-        }
-    }
-    console.log("Next audio index = " + index);
-
-    animateVolumeTimeout = setTimeout(function() { 
-        playAnimateVolume1(media, index, transitionLength, random);
-    }, transitionLength/2);
-}
 
 
 </script>
