@@ -97,6 +97,8 @@ var audio = [
 
 
 
+var opacityPLayer;
+var volumePlayer;
 
 document.getElementById("play").onclick = function() {
     document.getElementById(videos[0].id).play();
@@ -109,22 +111,21 @@ document.getElementById("show").onclick = function() {
 };
 
 document.getElementById("showVideos").onclick = function() {
-    let p = new PlayerChangeOpacity("videos", videos, 1000, false);
-    p.play();
+    opacityPlayer = new PlayerChangeOpacity("videos", videos, 1000, false);
+    opacityPlayer.play();
 };
 document.getElementById("showImages").onclick = function() {
-    let p = new PlayerChangeOpacity("images", images, 1000, true);
-    p.play();
+    opacityPLayer = new PlayerChangeOpacity("images", images, 1000, true);
+    opacityPlayer.play();
 };
 document.getElementById("showAudio").onclick = function() {
-    let p = new PlayerChangeVolume("audio", audio, 1000, true);
-    p.play();
+    volumePLayer = new PlayerChangeVolume("audio", audio, 1000, true);
+    volumePlayer.play();
 }
 
 
 document.getElementById("stopOpacity").onclick = function() {
-    clearTimeout(animateOpacityTimeout);
-    $(currentOpacityElementIn).animate({opacity:0}, 1000);
+    opacityPlayer.finish();
 }
 document.getElementById("stopVolume").onclick = function() {
     clearTimeout(animateVolumeTimeout);
@@ -159,8 +160,6 @@ var perekskog = {
 };
 
 
-var animateOpacityTimeout;
-var currentOpacityElementIn;
 var animateVolumeTimeout;
 var currentVolumeElementIn;
 
@@ -182,7 +181,7 @@ function PlayerChangeOpacity(id, media, transition, random) {
 
     this.playAnimateOpacity1 = function(media, index, transitionLength, random) {
         e = document.getElementById(media[index].id);
-        currentOpacityElementIn = e;
+        this.currentOpacityElementIn = e;
         $(e).animate({opacity: 0.95}, transitionLength);
 
         interval = perekskog.getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)    
@@ -194,7 +193,7 @@ function PlayerChangeOpacity(id, media, transition, random) {
         }
 
         length = perekskog.max(transitionLength, interval.length);
-        animateOpacityTimeout = setTimeout(function(e) { 
+        this.animateOpacityTimeout = setTimeout(function(e) { 
             e.playAnimateOpacity2(media, index, transitionLength, random); 
         }, length-transitionLength, this);
     };
@@ -214,15 +213,16 @@ function PlayerChangeOpacity(id, media, transition, random) {
         }
         console.log("Next image/video index = " + index);
         
-        animateOpacityTimeout = setTimeout(function(e) { 
+        this.animateOpacityTimeout = setTimeout(function(e) { 
             e.playAnimateOpacity1(media, index, transitionLength, random); 
         }, transitionLength/2, this);
     };
 
-    this.finishAnimateOpacity = function() {
-        clearTimeout(animateOpacityTimeout);
-        $(e).animate({opacity: 0.0}, transitionLength);    
+    this.finish = function() {
+        clearTimeout(this.nimateOpacityTimeout);
+        $(this.currentOpacityElementIn).animate({opacity:0}, 1000);
     };
+
 };
 
 
