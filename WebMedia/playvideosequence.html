@@ -69,7 +69,7 @@
     <img id="bild3" src="media/bild-3.jpg" class="bild"></img>    
 </div>
 
-<div class="audio-player" align="center" copntrols>
+<div class="audio-player" align="center">
     <audio id="audio1" src="media/911-report-13s.mp3" class="audio" type="audio/mpeg"></audio>
     <audio id="audio2" src="media/911-report-13s.mp3" class="audio" type="audio/mpeg"></audio>
     <audio id="audio3" src="media/911-report-13s.mp3" class="audio" type="audio/mpeg"></audio>
@@ -128,8 +128,7 @@ document.getElementById("stopOpacity").onclick = function() {
     opacityPlayer.finish();
 }
 document.getElementById("stopVolume").onclick = function() {
-    clearTimeout(animateVolumeTimeout);
-    $(currentVolumeElementIn).animate({volume:0}, 1000);
+    volumePlayer.finish();
 }
 
 
@@ -158,10 +157,6 @@ var perekskog = {
         }
     }
 };
-
-
-var animateVolumeTimeout;
-var currentVolumeElementIn;
 
 
 function PlayerChangeOpacity(id, media, transition, random) {
@@ -249,7 +244,7 @@ class PlayerChangeVolume
 
     playAnimateVolume1(media, index, transitionLength, random) {
         var e = document.getElementById(media[index].id);
-        currentVolumeElementIn = e;
+        this.currentVolumeElementIn = e;
 
         e.volume = 0;
         var interval = perekskog.getPlaybackInterval(media[index].mediaIn, media[index].mediaOut, media[index].lengthMin, media[index].lengthMax)
@@ -258,7 +253,7 @@ class PlayerChangeVolume
         e.currentTime = interval.start / 1000;
         e.play();
         $(e).animate({volume: 0.95}, transitionLength);
-        animateVolumeTimeout = setTimeout(function(e) { 
+        this.animateVolumeTimeout = setTimeout(function(e) { 
             e.playAnimateVolume2(media, index, transitionLength, random); 
         }, length-transitionLength, this);
     };
@@ -277,10 +272,15 @@ class PlayerChangeVolume
         }
         console.log("Next audio index = " + index);
 
-        animateVolumeTimeout = setTimeout(function(e) { 
+        this.animateVolumeTimeout = setTimeout(function(e) { 
             e.playAnimateVolume1(media, index, transitionLength, random);
         }, transitionLength/2, this);
     };
+
+    finish() {
+        clearTimeout(this.animateVolumeTimeout);
+        $(this.currentVolumeElementIn).animate({volume:0}, 1000);
+    }
 
 };
 
