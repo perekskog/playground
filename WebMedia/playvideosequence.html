@@ -70,9 +70,9 @@
 </div>
 
 <div class="audio-player" align="center">
-    <audio id="audio1" src="media/911-report-13s.mp3" class="audio" type="audio/mpeg"></audio>
+    <audio id="audio1" src="media/news-1.mp3" class="audio" type="audio/mpeg"></audio>
     <audio id="audio2" src="media/911-report-13s.mp3" class="audio" type="audio/mpeg"></audio>
-    <audio id="audio3" src="media/911-report-13s.mp3" class="audio" type="audio/mpeg"></audio>
+    <audio id="audio3" src="media/building-suspense.mp3" class="audio" type="audio/mpeg"></audio>
 </div>
 
 
@@ -91,8 +91,8 @@ var images = [
 ];
 var audio = [
     { id: "audio1", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
-    { id: "audio3", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
-    { id: "audio2", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000}
+    { id: "audio2", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000},
+    { id: "audio3", mediaIn: 0, mediaOut: 10000, lengthMin: 2000, lengthMax: 10000}
 ];
 
 
@@ -260,7 +260,7 @@ class PlayerChangeVolume
 
     playAnimateVolume2(media, index, transitionLength, random) {
         var e = document.getElementById(media[index].id)
-        $(e).animate({volume: 0.0}, transitionLength);
+        $(e).animate({volume: 0.0}, { duration:transitionLength, complete: function() { e.pause(); } });
         if(random==true) {
             index = Math.floor(Math.random() * media.length);
         } else {
