@@ -97,7 +97,7 @@ var audio = [
 
 
 
-var opacityPLayer;
+var opacityPlayer;
 var volumePlayer;
 
 document.getElementById("play").onclick = function() {
@@ -115,7 +115,7 @@ document.getElementById("showVideos").onclick = function() {
     opacityPlayer.play();
 };
 document.getElementById("showImages").onclick = function() {
-    opacityPLayer = new PlayerChangeOpacity("images", images, 1000, true);
+    opacityPlayer = new PlayerChangeOpacity("images", images, 1000, true);
     opacityPlayer.play();
 };
 document.getElementById("showAudio").onclick = function() {
@@ -214,7 +214,7 @@ function PlayerChangeOpacity(id, media, transition, random) {
     };
 
     this.finish = function() {
-        clearTimeout(this.nimateOpacityTimeout);
+        clearTimeout(this.animateOpacityTimeout);
         $(this.currentOpacityElementIn).animate({opacity:0}, 1000);
     };
 
@@ -280,7 +280,7 @@ class PlayerChangeVolume
     finish() {
         clearTimeout(this.animateVolumeTimeout);
         $(this.currentVolumeElementIn).animate({volume:0}, 1000);
-    }
+    };
 
 };
 
