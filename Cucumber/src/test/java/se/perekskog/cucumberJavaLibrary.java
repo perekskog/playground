@@ -1,4 +1,4 @@
-package stepDefinition;
+package se.perekskog.stepDefinition;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
